@@ -39,11 +39,11 @@ jobs:
         run: |
           python direct_desi_analysis/measure_dxi_jackknife.py --self-test --threads 4
 
-      - name: Download public DESI DR1 LRG SGC and measure xi and dxi/dz
+      - name: Download public DESI DR1 LRG NGC and measure xi and dxi/dz
         run: |
           python direct_desi_analysis/measure_dxi_jackknife.py \
             --download \
-            --cap SGC \
+            --cap NGC \
             --root results \
             --zmin 0.4 --zmax 1.1 \
             --smin 40 --smax 160 --ds 4 \
@@ -53,24 +53,24 @@ jobs:
             --pivot 0.75 \
             --theta-cut 0.05 \
             --data-fraction 1.0 \
-            --random-fraction 0.25 \
+            --random-fraction 0.15 \
             --seed 73429
 
       - name: Record environment
         if: always()
         run: |
-          mkdir -p results/SGC
-          python --version > results/SGC/python_version.txt || true
-          python -m pip freeze > results/SGC/pip_freeze.txt || true
+          mkdir -p results/NGC
+          python --version > results/NGC/python_version.txt || true
+          python -m pip freeze > results/NGC/pip_freeze.txt || true
           du -sh results || true
-          find results/SGC -maxdepth 2 -type f -printf '%p %s bytes\n' | sort || true
+          find results/NGC -maxdepth 2 -type f -printf '%p %s bytes\n' | sort || true
 
       - name: Upload direct-catalogue products
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: desi-sgc-direct-dxi-full
-          path: results/SGC
+          name: desi-ngc-direct-dxi-full
+          path: results/NGC
           if-no-files-found: error
           compression-level: 6
           retention-days: 3
