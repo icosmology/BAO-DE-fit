@@ -1,0 +1,68 @@
+name: Direct DESI differential clustering
+
+on:
+  push:
+    branches:
+      - chatgpt-desi-differential-bao-20260904
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install analysis dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy<2.3" scipy numba matplotlib fitsio
+
+      - name: Validate pair counter and delete-one jackknife
+        run: |
+          python direct_desi_analysis/measure_dxi_jackknife.py --self-test --threads 4
+
+      - name: Download public DESI DR1 LRG SGC and measure xi and dxi/dz
+        run: |
+          python direct_desi_analysis/measure_dxi_jackknife.py \
+            --download \
+            --cap SGC \
+            --root results \
+            --zmin 0.4 --zmax 1.1 \
+            --smin 50 --smax 150 --ds 5 \
+            --nmu 8 \
+            --njack 20 \
+            --threads 4 \
+            --pivot 0.75 \
+            --theta-cut 0.05 \
+            --data-fraction 0.30 \
+            --random-fraction 0.06 \
+            --seed 73429
+
+      - name: Record environment
+        if: always()
+        run: |
+          python --version > results/python_version.txt || true
+          python -m pip freeze > results/pip_freeze.txt || true
+          du -sh results || true
+          find results -maxdepth 3 -type f -printf '%p %s bytes\n' | sort || true
+
+      - name: Upload direct-catalogue products
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desi-sgc-direct-dxi
+          path: results
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 3
