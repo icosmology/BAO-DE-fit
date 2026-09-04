@@ -46,14 +46,14 @@ jobs:
             --cap SGC \
             --root results \
             --zmin 0.4 --zmax 1.1 \
-            --smin 50 --smax 150 --ds 5 \
-            --nmu 8 \
-            --njack 20 \
+            --smin 40 --smax 160 --ds 4 \
+            --nmu 20 \
+            --njack 40 \
             --threads 4 \
             --pivot 0.75 \
             --theta-cut 0.05 \
-            --data-fraction 0.30 \
-            --random-fraction 0.06 \
+            --data-fraction 1.0 \
+            --random-fraction 0.25 \
             --seed 73429
 
       - name: Record environment
@@ -69,7 +69,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: desi-sgc-direct-dxi
+          name: desi-sgc-direct-dxi-full
           path: results/SGC
           if-no-files-found: error
           compression-level: 6
