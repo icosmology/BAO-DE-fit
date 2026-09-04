@@ -39,12 +39,37 @@ jobs:
         run: |
           python direct_desi_analysis/measure_dxi_jackknife.py --self-test --threads 4
 
-      - name: Download public DESI DR1 LRG NGC and measure xi and dxi/dz
+      - name: Download NGC catalogues with resume and mirror fallback
+        run: |
+          mkdir -p catalogs
+          get_file () {
+            name="$1"; expected="$2"
+            primary="https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2/${name}"
+            mirror="https://webdav-hdfs.pic.es/data/public/DESI/DR1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2/${name}"
+            rm -f "catalogs/${name}.part"
+            if ! curl -fL --retry 12 --retry-all-errors --retry-delay 3 --connect-timeout 30 \
+                 --speed-time 90 --speed-limit 1024 --max-time 2400 \
+                 -o "catalogs/${name}.part" "$primary"; then
+              rm -f "catalogs/${name}.part"
+              curl -kfL --retry 12 --retry-all-errors --retry-delay 3 --connect-timeout 30 \
+                   --speed-time 90 --speed-limit 1024 --max-time 2400 \
+                   -o "catalogs/${name}.part" "$mirror"
+            fi
+            actual=$(stat -c%s "catalogs/${name}.part")
+            test "$actual" = "$expected"
+            mv "catalogs/${name}.part" "catalogs/${name}"
+            sha256sum "catalogs/${name}"
+          }
+          get_file LRG_NGC_clustering.dat.fits 166812480
+          get_file LRG_NGC_0_clustering.ran.fits 1136165760
+
+      - name: Measure actual NGC xi and dxi/dz
         run: |
           python direct_desi_analysis/measure_dxi_jackknife.py \
-            --download \
             --cap NGC \
             --root results \
+            --data catalogs/LRG_NGC_clustering.dat.fits \
+            --random catalogs/LRG_NGC_0_clustering.ran.fits \
             --zmin 0.4 --zmax 1.1 \
             --smin 40 --smax 160 --ds 4 \
             --nmu 20 \
@@ -69,7 +94,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: desi-ngc-direct-dxi-full
+          name: desi-ngc-direct-dxi-full-retry
           path: results/NGC
           if-no-files-found: error
           compression-level: 6
