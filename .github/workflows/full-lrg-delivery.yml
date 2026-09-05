@@ -1,0 +1,91 @@
+name: Package full LRG analysis and plots
+on:
+  push:
+    branches: [chatgpt-full-lrg-analysis-20260905]
+    paths: [full_lrg/assemble_delivery.py, .github/workflows/full-lrg-delivery.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      MPLBACKEND: Agg
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-full-lrg-analysis-20260905
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' matplotlib requests
+      - name: Require successful final posterior calculation
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'PY'
+          import requests,os,time
+          url='https://api.github.com/repos/icosmology/BAO-DE-fit/actions/runs/33950857440'
+          for i in range(240):
+              r=requests.get(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']},timeout=60);r.raise_for_status();j=r.json()
+              print(j['status'],j.get('conclusion'),flush=True)
+              if j['status']=='completed':
+                  assert j['conclusion']=='success',j
+                  break
+              time.sleep(15)
+          else:raise RuntimeError('Final posterior calculation did not complete')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33949788858
+          name: full-lrg-v15-differential-bao-results
+          path: base_results
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33950857440
+          name: full-lrg-v15-final-physical-posterior
+          path: final_results
+      - name: Assemble numerical and visual report
+        run: |
+          python -m py_compile full_lrg/assemble_delivery.py
+          python full_lrg/assemble_delivery.py
+          cp final_results/reproduction/environment.txt delivery/reproduction/environment_fit.txt
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,shutil
+          root=Path('delivery');compact=Path('plots_and_report');compact.mkdir(exist_ok=True)
+          lines=[]
+          for p in sorted(root.rglob('*')):
+              if not p.is_file():continue
+              with p.open('rb') as f:sha=hashlib.file_digest(f,'sha256').hexdigest()
+              lines.append(sha+'  '+str(p.relative_to(root)))
+              if p.suffix in ['.png','.svg','.json','.csv','.html','.md'] and p.parent==root:
+                  shutil.copy2(p,compact/p.name)
+          (root/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n')
+          PY
+      - name: Store final report and sensitivity plots on isolated branch
+        run: |
+          git config user.name 'DESI analysis workflow'
+          git config user.email 'noreply@users.noreply.github.com'
+          git pull --ff-only origin chatgpt-full-lrg-analysis-20260905
+          cp plots_and_report/* full_lrg_outputs/
+          git add full_lrg_outputs
+          git diff --cached --quiet || git commit -m 'Full LRG analysis report, comparisons and verified numerical deliverables'
+          git push origin HEAD:chatgpt-full-lrg-analysis-20260905
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-full-LRG-v15-analysis-complete
+          path: delivery
+          compression-level: 0
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-full-LRG-v15-plots-and-report
+          path: plots_and_report
+          compression-level: 6
+          retention-days: 90
