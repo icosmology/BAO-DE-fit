@@ -1,0 +1,127 @@
+{
+  "status": "full_v15_NGC_SGC_all_data_all_random0_counts_completed",
+  "njack": 120,
+  "covariance_rank": 119,
+  "covariance_dimension": 180,
+  "pre_reconstruction": true,
+  "catalogues": {
+    "NGC": {
+      "cap": "NGC",
+      "task": "DDDR",
+      "configuration": {
+        "zmin": 0.4,
+        "zmax": 1.1,
+        "pivot": 0.75,
+        "smin": 40.0,
+        "ds": 6.0,
+        "ns": 20,
+        "nmu": 20,
+        "nz": 70,
+        "om": 0.3153,
+        "theta": 0.05,
+        "threads": 4,
+        "njack": 80
+      },
+      "data": {
+        "file": "LRG_NGC_clustering.dat.fits",
+        "bytes": 143196480,
+        "sha256": "84548c4ea5208232f1c2f04416ddf272c72fa31313e3bbb60e67d134f186a027",
+        "input_rows": 1476135,
+        "selected_rows": 1476135,
+        "selection_excluded": 0,
+        "thinning_fraction": 1.0
+      },
+      "random": {
+        "file": "LRG_NGC_0_clustering.ran.fits",
+        "bytes": 985916160,
+        "sha256": "f80aaa1bd48f2695c07cbccd480065f74e8e393e6a9e93b209af42419749e2bd",
+        "input_rows": 9389588,
+        "selected_rows": 9387225,
+        "selection_excluded": 2363,
+        "thinning_fraction": 1.0
+      },
+      "pre_reconstruction": true,
+      "tests": "brute_force_and_every_jackknife_recount_passed",
+      "DD": {
+        "pairs": 2912323540,
+        "seconds": 64.74278998374939
+      },
+      "DR": {
+        "pairs": 33551894727,
+        "seconds": 599.6922867298126
+      },
+      "total_pairs": [
+        2912323540,
+        33551894727,
+        99271446395
+      ]
+    },
+    "SGC": {
+      "cap": "SGC",
+      "task": "DDDR",
+      "configuration": {
+        "zmin": 0.4,
+        "zmax": 1.1,
+        "pivot": 0.75,
+        "smin": 40.0,
+        "ds": 6.0,
+        "ns": 20,
+        "nmu": 20,
+        "nz": 70,
+        "om": 0.3153,
+        "theta": 0.05,
+        "threads": 4,
+        "njack": 40
+      },
+      "data": {
+        "file": "LRG_SGC_clustering.dat.fits",
+        "bytes": 64272960,
+        "sha256": "ae478557d9ef70257cc689197052515f5ebbc0b23359c81159a8ad3289332e69",
+        "input_rows": 662492,
+        "selected_rows": 662492,
+        "selection_excluded": 0,
+        "thinning_fraction": 1.0
+      },
+      "random": {
+        "file": "LRG_SGC_0_clustering.ran.fits",
+        "bytes": 520781760,
+        "sha256": "70821a9609c4f825fecd6c45f6ede3b95bc309103e7ca580231b212a27e2592e",
+        "input_rows": 4959721,
+        "selected_rows": 4959533,
+        "selection_excluded": 188,
+        "thinning_fraction": 1.0
+      },
+      "pre_reconstruction": true,
+      "tests": "brute_force_and_every_jackknife_recount_passed",
+      "DD": {
+        "pairs": 822575937,
+        "seconds": 23.903562545776367
+      },
+      "DR": {
+        "pairs": 11783148753,
+        "seconds": 202.86995315551758
+      },
+      "total_pairs": [
+        822575937,
+        11783148753,
+        42802834713
+      ]
+    }
+  },
+  "kernel_diagnostics": {
+    "pair_z": 0.7625118106676831,
+    "first_derivative_z": 0.7461128643691824,
+    "second_derivative_z": 0.7464858976144186,
+    "pair_sigma_z": 0.1690354997439708,
+    "first_derivative_sigma_z": 0.1398379302161262,
+    "second_derivative_sigma_z": 0.12122216187311376
+  },
+  "normalization_tests": {
+    "quadrature_moment_max_error": 1.2212453270876722e-15,
+    "minimum_quadrature_probability": 0.0,
+    "xi_prime_constant_leakage": 2.55351295663786e-15,
+    "xi_second_constant_leakage": 7.893685705084863e-14,
+    "xi_second_linear_leakage": 1.4183099139586375e-14
+  },
+  "note": "No simulation or published distance table used to generate the measurements."
+}

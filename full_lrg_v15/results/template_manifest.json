@@ -1,0 +1,13 @@
+{
+  "CAMB_version": "2.0.4",
+  "Omega_m": 0.3153,
+  "h": 0.6736,
+  "ombh2": 0.02237,
+  "mnu_eV": 0.06,
+  "ns": 0.9649,
+  "rdrag_Mpc": 147.0897795559183,
+  "power_redshift": 0.75,
+  "model": "linear CAMB P(k), smooth no-wiggle subtraction, anisotropic Gaussian BAO damping, Kaiser RSD; broadband profiled",
+  "fixed_parallel_to_perpendicular_damping_ratio": 1.6,
+  "extra_Hankel_high_k_smoothing_Mpc_h": 1.5
+}
