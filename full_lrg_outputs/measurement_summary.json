@@ -1,0 +1,53 @@
+{
+  "source": "actual DESI DR1 v1.5 catalogues",
+  "caps": {
+    "NGC": {
+      "selected_data_rows": 1476135,
+      "selected_random_rows": 9387225,
+      "input_data_rows": 1476135,
+      "input_random_rows": 9389588,
+      "njack": 80,
+      "sha256": {
+        "LRG_NGC_clustering.dat.fits": "84548c4ea5208232f1c2f04416ddf272c72fa31313e3bbb60e67d134f186a027",
+        "LRG_NGC_0_clustering.ran.fits": "f80aaa1bd48f2695c07cbccd480065f74e8e393e6a9e93b209af42419749e2bd"
+      },
+      "pair_counts": {
+        "DD": 2912323543,
+        "DR": 33551894749,
+        "RR": 99271446439
+      }
+    },
+    "SGC": {
+      "selected_data_rows": 662492,
+      "selected_random_rows": 4959533,
+      "input_data_rows": 662492,
+      "input_random_rows": 4959721,
+      "njack": 40,
+      "sha256": {
+        "LRG_SGC_clustering.dat.fits": "ae478557d9ef70257cc689197052515f5ebbc0b23359c81159a8ad3289332e69",
+        "LRG_SGC_0_clustering.ran.fits": "70821a9609c4f825fecd6c45f6ede3b95bc309103e7ca580231b212a27e2592e"
+      },
+      "pair_counts": {
+        "DD": 822575938,
+        "DR": 11783148750,
+        "RR": 42802834728
+      }
+    }
+  },
+  "covariance": "sum of independent cap delete-one jackknife covariances",
+  "pre_reconstruction": true,
+  "thinning": false,
+  "pair_zmean_rebin1": 0.7625080023815854,
+  "W1_zmean_rebin1": 0.7461092177279842,
+  "W2_zmean_rebin1": 0.7464918435897466,
+  "W1_zvar_rebin1": 0.019568314146119592,
+  "W2_zvar_rebin1": 0.014705503184382233,
+  "covariance_rank_rebin1": 118,
+  "pair_zmean_rebin2": 0.7625412582140493,
+  "W1_zmean_rebin2": 0.7461299185859508,
+  "W2_zmean_rebin2": 0.7464889257684726,
+  "W1_zvar_rebin2": 0.019539956369365587,
+  "W2_zvar_rebin2": 0.014683240464083832,
+  "covariance_rank_rebin2": 118,
+  "status": "complete_raw_clustering_and_two_derivatives"
+}

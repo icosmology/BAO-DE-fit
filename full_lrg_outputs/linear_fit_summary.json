@@ -1,0 +1,202 @@
+{
+  "basis": "linear",
+  "derivative_channels": 2,
+  "redshift_pivot": 0.75,
+  "u_definition": "(z-0.75)/0.35",
+  "data_dimension": 52,
+  "raw_covariance_rank": 52,
+  "covariance_shrinkage": 0.2,
+  "linear_nuisance_parameters": 21,
+  "nonlinear_parameters": 6,
+  "conditional_best_fit_chi2_data": 19.896344309480053,
+  "best_fit": [
+    -0.026020033391755553,
+    0.022458174250413646,
+    0.0024226330477574165,
+    0.03689821145058243,
+    4.2829932156596975,
+    8.34198778497704
+  ],
+  "parameters": {
+    "ln_alpha_perp_p": {
+      "p2p5": -0.11480761952507301,
+      "p16": -0.06629700045781449,
+      "median": -0.034411499708027565,
+      "p84": -0.007840305855169651,
+      "p97p5": 0.020769152651390694
+    },
+    "ln_alpha_parallel_p": {
+      "p2p5": -0.09929865217936738,
+      "p16": -0.015263946527878354,
+      "median": 0.03603631948084711,
+      "p84": 0.0909869522421682,
+      "p97p5": 0.15573415237559693
+    },
+    "dln_alpha_perp_du": {
+      "p2p5": -0.21999685041926115,
+      "p16": -0.08282006088168348,
+      "median": 0.0753191458977041,
+      "p84": 0.22429925787252408,
+      "p97p5": 0.3010267297418057
+    },
+    "dln_alpha_parallel_du": {
+      "p2p5": -0.3297131257797764,
+      "p16": -0.22231443866451522,
+      "median": 0.06287895504851287,
+      "p84": 0.2793405769213273,
+      "p97p5": 0.33914251181164484
+    },
+    "Sigma_perp": {
+      "p2p5": 2.54674722244992,
+      "p16": 3.4010207178112797,
+      "median": 4.2864644077294365,
+      "p84": 5.240783163739456,
+      "p97p5": 6.183683772798474
+    },
+    "Sigma_parallel": {
+      "p2p5": 4.944661422870027,
+      "p16": 6.528810960068308,
+      "median": 8.15258914130621,
+      "p84": 9.916889575349503,
+      "p97p5": 11.553846999550865
+    }
+  },
+  "distances_and_derivatives": {
+    "DM_over_rd": {
+      "p2p5": 16.562522751815848,
+      "p16": 17.385788067343004,
+      "median": 17.94907524973384,
+      "p84": 18.432396381778574,
+      "p97p5": 18.96735318774696
+    },
+    "DH_over_rd": {
+      "p2p5": 17.779689962039598,
+      "p16": 19.338375659925262,
+      "median": 20.356326821282767,
+      "p84": 21.50622432299498,
+      "p97p5": 22.944760201144643
+    },
+    "dDM_over_rd_dz": {
+      "p2p5": 7.928328953923231,
+      "p16": 14.927076026641615,
+      "median": 22.78972792821444,
+      "p84": 29.896063465059065,
+      "p97p5": 33.78936575040193
+    },
+    "dDH_over_rd_dz": {
+      "p2p5": -32.03248390275681,
+      "p16": -25.423733348019667,
+      "median": -8.791059378879371,
+      "p84": 3.745966714941843,
+      "p97p5": 7.1758635000834134
+    },
+    "d2DM_over_rd_dz2": {
+      "p2p5": -29.244692959490465,
+      "p16": -19.852818025584135,
+      "median": -2.566213639632889,
+      "p84": 19.73190763818418,
+      "p97p5": 33.31380845120452
+    },
+    "d2DH_over_rd_dz2": {
+      "p2p5": 0.9476113689726471,
+      "p16": 1.2817341426771525,
+      "median": 4.771823029656713,
+      "p84": 32.67627590139191,
+      "p97p5": 50.55423666035765
+    }
+  },
+  "mean_acceptance_fraction": 0.439125,
+  "autocorrelation_time_estimate": [
+    79.95502428875407,
+    75.08014280601975,
+    89.84217381669939,
+    106.79404410501505,
+    76.06458517752962,
+    85.78348888354975
+  ],
+  "steps_per_walker": 3000,
+  "burn_in": 1000,
+  "effective_sample_estimate": 449.46326737846533,
+  "optimizer_success": true,
+  "seconds": 113.85577726364136,
+  "boundary_fractions": {
+    "ln_alpha_perp_p": 0.00010416666666666667,
+    "ln_alpha_parallel_p": 0.005625,
+    "dln_alpha_perp_du": 0.004375,
+    "dln_alpha_parallel_du": 0.0509375,
+    "Sigma_perp": 0.004583333333333333,
+    "Sigma_parallel": 0.0034375
+  },
+  "regularization_sensitivity": [
+    {
+      "covariance_shrinkage": 0.0,
+      "optimizer_success": true,
+      "parameters": [
+        -0.01388906491311749,
+        0.01747463769501799,
+        -0.004611087711434052,
+        0.04478495791427872,
+        3.8845476292950507,
+        7.609247924161642
+      ],
+      "distances": [
+        18.321239775307077,
+        19.981964307591568,
+        19.12360808408639,
+        -9.631809632583831,
+        -12.319363353790314,
+        5.582607084102554
+      ]
+    },
+    {
+      "covariance_shrinkage": 0.1,
+      "optimizer_success": true,
+      "parameters": [
+        -0.02298036996332604,
+        0.021150321748193014,
+        2.9961729852533665e-05,
+        0.040625458608893376,
+        4.185965303560406,
+        8.058832905754464
+      ],
+      "distances": [
+        18.15543064832255,
+        20.055546845382807,
+        19.191281015438392,
+        -9.905624076531925,
+        -11.702105932473977,
+        5.835774667388989
+      ]
+    },
+    {
+      "covariance_shrinkage": 0.4,
+      "optimizer_success": true,
+      "parameters": [
+        -0.028681765153902847,
+        0.024354154832709703,
+        0.005155514622009784,
+        0.030493314550519846,
+        4.370720489504132,
+        8.639099063188782
+      ],
+      "distances": [
+        18.052213882722906,
+        20.119904510452237,
+        19.346539767148123,
+        -10.519861709492371,
+        -11.07281054496029,
+        6.446718736655689
+      ]
+    }
+  ],
+  "amplitude_prior_sigma": 30.0,
+  "broadband_coefficient_prior_sigma": 50.0,
+  "limitations": [
+    "Pre-reconstruction, no shifted randoms or mocks used.",
+    "The empirical jackknife covariance is regularized; no claim of an official DESI covariance or calibrated discovery significance.",
+    "Smooth finite-dimensional redshift model; distance derivatives are not model-independent point estimates.",
+    "Actual RR redshift windows and separation-bin averaging are included, but finite angular/redshift discretization and estimator integral constraints need further mock validation.",
+    "First-/second-derivative clustering includes bias, growth, RSD, damping and selection evolution.",
+    "Gaussian nuisance amplitude priors allow flexible angular/redshift evolution; no growth parameter inference is made."
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "basis": "quadratic",
+  "derivative_channels": 3,
+  "redshift_pivot": 0.75,
+  "u_definition": "(z-0.75)/0.35",
+  "data_dimension": 78,
+  "raw_covariance_rank": 78,
+  "covariance_shrinkage": 0.2,
+  "linear_nuisance_parameters": 27,
+  "nonlinear_parameters": 8,
+  "conditional_best_fit_chi2_data": 29.738238568314674,
+  "best_fit": [
+    -0.05397088996030234,
+    0.0553331274597478,
+    0.013613303458965964,
+    0.037669458902488046,
+    0.15853396342118944,
+    -0.2000608484561011,
+    4.376066872817343,
+    8.21372284865218
+  ],
+  "parameters": {
+    "ln_alpha_perp_p": {
+      "p2p5": -0.1230037642394892,
+      "p16": -0.09592929046993635,
+      "median": -0.06742946112303572,
+      "p84": -0.0348031645408332,
+      "p97p5": 0.006135202871295473
+    },
+    "ln_alpha_parallel_p": {
+      "p2p5": -0.12050542130738263,
+      "p16": 0.011839286693059666,
+      "median": 0.09330185863066229,
+      "p84": 0.1610355908303899,
+      "p97p5": 0.19278555644312526
+    },
+    "dln_alpha_perp_du": {
+      "p2p5": -0.11468759676252177,
+      "p16": -0.04196735926665403,
+      "median": 0.010237333585169584,
+      "p84": 0.06399361978480879,
+      "p97p5": 0.14455012755916816
+    },
+    "dln_alpha_parallel_du": {
+      "p2p5": -0.30988519524051217,
+      "p16": -0.12392356001722259,
+      "median": 0.06043264274659162,
+      "p84": 0.23401318357055167,
+      "p97p5": 0.3281131492759546
+    },
+    "d2ln_alpha_perp_du2": {
+      "p2p5": -0.41730009584558037,
+      "p16": -0.013865789361774631,
+      "median": 0.16708584711732044,
+      "p84": 0.33326671143117237,
+      "p97p5": 0.5321741439756356
+    },
+    "d2ln_alpha_parallel_du2": {
+      "p2p5": -0.7257853764830714,
+      "p16": -0.46798664705462917,
+      "median": -0.08341009361000387,
+      "p84": 0.2960228952850079,
+      "p97p5": 0.6432721107332181
+    },
+    "Sigma_perp": {
+      "p2p5": 2.6849289211825953,
+      "p16": 3.5346870676095015,
+      "median": 4.507556235753663,
+      "p84": 5.443384824710135,
+      "p97p5": 6.350195730032047
+    },
+    "Sigma_parallel": {
+      "p2p5": 5.143707133306809,
+      "p16": 6.809236491030205,
+      "median": 8.648460381286439,
+      "p84": 10.462105155786272,
+      "p97p5": 12.220983019472163
+    }
+  },
+  "distances_and_derivatives": {
+    "DM_over_rd": {
+      "p2p5": 16.427328681220832,
+      "p16": 16.878165506297705,
+      "median": 17.366110491967692,
+      "p84": 17.94204660469453,
+      "p97p5": 18.691806972957693
+    },
+    "DH_over_rd": {
+      "p2p5": 17.40661007592837,
+      "p16": 19.869675617563217,
+      "median": 21.556066887216353,
+      "p84": 23.06672344015572,
+      "p97p5": 23.81084146825469
+    },
+    "dDM_over_rd_dz": {
+      "p2p5": 12.861782251626115,
+      "p16": 16.225215275151825,
+      "median": 18.89170843591231,
+      "p84": 21.62726666101318,
+      "p97p5": 25.535631913785533
+    },
+    "dDH_over_rd_dz": {
+      "p2p5": -33.27714894173651,
+      "p16": -20.82938412970748,
+      "median": -9.243485507109718,
+      "p84": 1.2028955610225647,
+      "p97p5": 6.705409802809621
+    },
+    "d2DM_over_rd_dz2": {
+      "p2p5": -65.22491950122564,
+      "p16": -12.397633745730085,
+      "median": 14.284290236349914,
+      "p84": 36.25588703730468,
+      "p97p5": 64.05442246751042
+    },
+    "d2DH_over_rd_dz2": {
+      "p2p5": -125.99191715891658,
+      "p16": -76.05743166722894,
+      "median": -6.617326022772684,
+      "p84": 70.48542274094538,
+      "p97p5": 127.32122752844255
+    }
+  },
+  "mean_acceptance_fraction": 0.38155208333333335,
+  "autocorrelation_time_estimate": [
+    116.68772011067045,
+    124.13461534413669,
+    112.1445485961333,
+    142.09747620562965,
+    111.94358117190927,
+    110.10383384178394,
+    103.80564521444899,
+    91.11642923710568
+  ],
+  "steps_per_walker": 3000,
+  "burn_in": 1000,
+  "effective_sample_estimate": 450.39505070016463,
+  "optimizer_success": true,
+  "seconds": 150.5402774810791,
+  "boundary_fractions": {
+    "ln_alpha_perp_p": 0.00015625,
+    "ln_alpha_parallel_p": 0.029296875,
+    "dln_alpha_perp_du": 7.8125e-05,
+    "dln_alpha_parallel_du": 0.024453125,
+    "d2ln_alpha_perp_du2": 0.000859375,
+    "d2ln_alpha_parallel_du2": 0.01359375,
+    "Sigma_perp": 0.004140625,
+    "Sigma_parallel": 0.002421875
+  },
+  "regularization_sensitivity": [
+    {
+      "covariance_shrinkage": 0.0,
+      "optimizer_success": true,
+      "parameters": [
+        -0.02208751458977209,
+        0.011668461687037952,
+        0.008543154863169922,
+        0.06109592762540494,
+        0.0033137659041058308,
+        0.08281617992256785,
+        4.501035585746179,
+        7.827712315305185
+      ],
+      "distances": [
+        18.171648060960738,
+        19.86628166770846,
+        19.650420132775775,
+        -8.65022392176419,
+        -10.27581535457251,
+        18.131501276085306
+      ]
+    },
+    {
+      "covariance_shrinkage": 0.1,
+      "optimizer_success": true,
+      "parameters": [
+        -0.04667666591142394,
+        0.04625973145896801,
+        0.011419927823157235,
+        0.04266859292783354,
+        0.12222259950402432,
+        -0.14300911664339372,
+        4.3720435133602695,
+        7.9391745949734
+      ],
+      "distances": [
+        17.730271434130724,
+        20.565505373866856,
+        19.318856496007843,
+        -10.03744572677249,
+        7.500653243479728,
+        -18.14233608206384
+      ]
+    },
+    {
+      "covariance_shrinkage": 0.4,
+      "optimizer_success": true,
+      "parameters": [
+        -0.06097966568147733,
+        0.06650581076690225,
+        0.015798388846079477,
+        0.029203048486265693,
+        0.20119509704985755,
+        -0.26853391971550367,
+        4.411381226399014,
+        8.5538057672815
+      ],
+      "distances": [
+        17.478480342364932,
+        20.986119755216606,
+        19.263159436174455,
+        -11.050134448193017,
+        19.14127181834142,
+        -39.198505215252126
+      ]
+    }
+  ],
+  "amplitude_prior_sigma": 30.0,
+  "broadband_coefficient_prior_sigma": 50.0,
+  "limitations": [
+    "Pre-reconstruction, no shifted randoms or mocks used.",
+    "The empirical jackknife covariance is regularized; no claim of an official DESI covariance or calibrated discovery significance.",
+    "Smooth finite-dimensional redshift model; distance derivatives are not model-independent point estimates.",
+    "Actual RR redshift windows and separation-bin averaging are included, but finite angular/redshift discretization and estimator integral constraints need further mock validation.",
+    "First-/second-derivative clustering includes bias, growth, RSD, damping and selection evolution.",
+    "Gaussian nuisance amplitude priors allow flexible angular/redshift evolution; no growth parameter inference is made."
+  ]
+}

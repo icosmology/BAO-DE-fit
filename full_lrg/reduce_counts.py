@@ -38,7 +38,7 @@ def cap_arrays(root,cap,rebin=1):
     ratio=(wd*wd-wd2)/(wr*wr-wr2)
     out['N']=out['DD'][...,:3]-cross[:,None,None,None]*out['DR'][...,:3]+ratio[:,None,None,None]*out['RR'][...,:3]
     out['R']=ratio[:,None,None,None]*out['RR']
-    out['H']=ratio[:,None,None,None,None,None]*out['hist']
+    out['H']=ratio[:,None,None,None,None]*out['hist']
     return out
 
 
