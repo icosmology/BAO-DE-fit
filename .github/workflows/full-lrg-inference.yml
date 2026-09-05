@@ -1,0 +1,92 @@
+name: Full LRG joint differential BAO inference
+on:
+  push:
+    branches: [chatgpt-full-lrg-analysis-20260905]
+    paths: [full_lrg/fit_bao.py, full_lrg/bao_model.py, full_lrg/reduce_counts.py, .github/workflows/full-lrg-inference.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  infer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      NUMBA_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba fitsio matplotlib camb emcee requests
+      - name: Wait for all real-catalogue partitions
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'PY'
+          import requests,os,time
+          url='https://api.github.com/repos/icosmology/BAO-DE-fit/actions/runs/33949291138'
+          for i in range(180):
+              r=requests.get(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN']},timeout=60);r.raise_for_status();j=r.json()
+              print(j['status'],j.get('conclusion'),flush=True)
+              if j['status']=='completed':
+                  assert j['conclusion']=='success',j
+                  break
+              time.sleep(15)
+          else:raise RuntimeError('Catalogue counting did not complete')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33949291138
+          pattern: full-lrg-counts-*
+          merge-multiple: true
+          path: partials
+      - name: Validate and reduce moments with complete second-derivative normalization
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('full_lrg/reduce_counts.py')
+          t=p.read_text().replace("ratio[:,None,None,None,None,None]*out['hist']", "ratio[:,None,None,None,None]*out['hist']")
+          p.write_text(t)
+          PY
+          python -m py_compile full_lrg/*.py
+          python full_lrg/reduce_counts.py --input partials --output results
+      - name: Save raw measurements before inference
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-lrg-v15-measured-xi-first-second
+          path: results
+          compression-level: 0
+          retention-days: 90
+      - name: Joint physical-template inference and uncertainty sampling
+        run: python full_lrg/fit_bao.py --input results/measurements_rebin2.npz --output results --steps 3000
+      - name: Archive source and environment
+        if: always()
+        run: |
+          mkdir -p results/reproduction
+          cp full_lrg/*.py results/reproduction/
+          cp .github/workflows/full-lrg-*.yml results/reproduction/
+          python -m pip freeze > results/reproduction/environment.txt
+      - name: Save compact figures and audit summaries on the isolated analysis branch
+        if: always()
+        run: |
+          mkdir -p full_lrg_outputs
+          find results -maxdepth 1 -type f \( -name '*.png' -o -name '*.svg' -o -name '*.json' -o -name '*.csv' -o -name '*.md' \) -exec cp {} full_lrg_outputs/ \;
+          git config user.name 'DESI analysis workflow'
+          git config user.email 'noreply@users.noreply.github.com'
+          git add full_lrg_outputs full_lrg/reduce_counts.py
+          git diff --cached --quiet || git commit -m 'Store directly measured LRG derivative statistics, joint fits and audit summaries'
+          git push origin HEAD:chatgpt-full-lrg-analysis-20260905
+      - name: Retain full numerical analysis products
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-lrg-v15-differential-bao-results
+          path: results
+          compression-level: 0
+          retention-days: 90
