@@ -1,101 +1,52 @@
 name: Direct DESI differential clustering
-
 on:
   push:
     branches:
       - chatgpt-desi-differential-bao-20260904
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 330
+    timeout-minutes: 90
     env:
       MPLBACKEND: Agg
-      PYTHONUNBUFFERED: "1"
+      PYTHONUNBUFFERED: '1'
+      OMP_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore analysis script byte-for-byte
-        run: |
-          cat direct_desi_analysis/script.b64.part* > /tmp/measure.b64
-          base64 --decode /tmp/measure.b64 > direct_desi_analysis/measure_dxi_jackknife.py
-          echo "2b8b95e34fe6394ab9891b5510f29c89b30b5f4675aa0580281f0f8b0eb5079e  direct_desi_analysis/measure_dxi_jackknife.py" | sha256sum --check
-          python -m py_compile direct_desi_analysis/measure_dxi_jackknife.py
-
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Install analysis dependencies
+          python-version: '3.11'
+      - name: Restore tested original counter
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install "numpy<2.3" scipy numba matplotlib fitsio
-
-      - name: Validate pair counter and delete-one jackknife
-        run: |
-          python direct_desi_analysis/measure_dxi_jackknife.py --self-test --threads 4
-
-      - name: Download NGC catalogues with resume and mirror fallback
+          cat direct_desi_analysis/script.b64.part* | base64 --decode > direct_desi_analysis/measure_dxi_jackknife.py
+          echo '2b8b95e34fe6394ab9891b5510f29c89b30b5f4675aa0580281f0f8b0eb5079e  direct_desi_analysis/measure_dxi_jackknife.py' | sha256sum --check
+          python -m py_compile direct_desi_analysis/extend_catalog.py
+      - name: Install dependencies
+        run: python -m pip install 'numpy<2.3' scipy numba matplotlib fitsio camb
+      - name: Download exact matching public NGC catalogues
         run: |
           mkdir -p catalogs
-          get_file () {
-            name="$1"; expected="$2"
-            primary="https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2/${name}"
-            mirror="https://webdav-hdfs.pic.es/data/public/DESI/DR1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2/${name}"
-            rm -f "catalogs/${name}.part"
-            if ! curl -fL --retry 12 --retry-all-errors --retry-delay 3 --connect-timeout 30 \
-                 --speed-time 90 --speed-limit 1024 --max-time 2400 \
-                 -o "catalogs/${name}.part" "$primary"; then
-              rm -f "catalogs/${name}.part"
-              curl -kfL --retry 12 --retry-all-errors --retry-delay 3 --connect-timeout 30 \
-                   --speed-time 90 --speed-limit 1024 --max-time 2400 \
-                   -o "catalogs/${name}.part" "$mirror"
-            fi
-            actual=$(stat -c%s "catalogs/${name}.part")
-            test "$actual" = "$expected"
-            mv "catalogs/${name}.part" "catalogs/${name}"
-            sha256sum "catalogs/${name}"
-          }
-          get_file LRG_NGC_clustering.dat.fits 166812480
-          get_file LRG_NGC_0_clustering.ran.fits 1136165760
-
-      - name: Measure actual NGC xi and dxi/dz
-        run: |
-          python direct_desi_analysis/measure_dxi_jackknife.py \
-            --cap NGC \
-            --root results \
-            --data catalogs/LRG_NGC_clustering.dat.fits \
-            --random catalogs/LRG_NGC_0_clustering.ran.fits \
-            --zmin 0.4 --zmax 1.1 \
-            --smin 40 --smax 160 --ds 4 \
-            --nmu 20 \
-            --njack 40 \
-            --threads 4 \
-            --pivot 0.75 \
-            --theta-cut 0.05 \
-            --data-fraction 1.0 \
-            --random-fraction 0.15 \
-            --seed 73429
-
-      - name: Record environment
+          base='https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2'
+          curl -fL --retry 6 --retry-all-errors --connect-timeout 30 --max-time 1800 "$base/LRG_NGC_clustering.dat.fits" -o catalogs/LRG_NGC_clustering.dat.fits
+          curl -fL --retry 6 --retry-all-errors --connect-timeout 30 --max-time 1800 "$base/LRG_NGC_0_clustering.ran.fits" -o catalogs/LRG_NGC_0_clustering.ran.fits
+          echo 'bb00c32668f0f4155996fb9d22483cf30805ba5f35c8198b19ce6bc51bcc5a65  catalogs/LRG_NGC_clustering.dat.fits' | sha256sum --check
+          echo '5f328d03d3c3a8a402b2948d191cd228257bb2ec0cb4886f06e92ef465c8a4ae  catalogs/LRG_NGC_0_clustering.ran.fits' | sha256sum --check
+      - name: Measure first and second derivative ingredients
+        run: python direct_desi_analysis/extend_catalog.py
+      - name: Save runtime information
         if: always()
         run: |
-          mkdir -p results/NGC
-          python --version > results/NGC/python_version.txt || true
-          python -m pip freeze > results/NGC/pip_freeze.txt || true
-          du -sh results || true
-          find results/NGC -maxdepth 2 -type f -printf '%p %s bytes\n' | sort || true
-
-      - name: Upload direct-catalogue products
+          mkdir -p results_second/NGC
+          python -m pip freeze > results_second/NGC/pip_freeze.txt
+      - name: Upload second-order real-catalogue counts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: desi-ngc-direct-dxi-full-retry
-          path: results/NGC
+          name: desi-ngc-second-order-real-counts
+          path: results_second/NGC
           if-no-files-found: error
-          compression-level: 6
-          retention-days: 3
+          retention-days: 7
