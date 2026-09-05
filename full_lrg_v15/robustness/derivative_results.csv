@@ -1,0 +1,13 @@
+fit,quantity,value,jk_sigma
+linear_AP_wide_nuisance,DM_over_rd,18.023860761585656,0.2846387695202316
+linear_AP_wide_nuisance,DH_over_rd,19.961582669520208,0.693354136997026
+linear_AP_wide_nuisance,dDM_over_rd_dz,20.013450870924345,1.3079935386241113
+linear_AP_wide_nuisance,dDH_over_rd_dz,-10.964795320328028,3.883027566524833
+linear_AP_wide_nuisance,d2DM_over_rd_dz2,-9.533857532947051,3.0924002196655
+linear_AP_wide_nuisance,d2DH_over_rd_dz2,6.961779850086869,4.318420069024606
+quadratic_AP_wide_nuisance,DM_over_rd,17.355084805629954,0.3313239898079455
+quadratic_AP_wide_nuisance,DH_over_rd,21.152716939968276,0.7800734036994139
+quadratic_AP_wide_nuisance,dDM_over_rd_dz,19.225709454082928,1.1211962242941926
+quadratic_AP_wide_nuisance,dDH_over_rd_dz,-11.876904873103864,2.1743748152712428
+quadratic_AP_wide_nuisance,d2DM_over_rd_dz2,27.703983596140926,12.037925353612016
+quadratic_AP_wide_nuisance,d2DH_over_rd_dz2,-50.936532657647675,32.025647309439826
