@@ -1,0 +1,79 @@
+name: Full LRG physical BAO robustness fits
+on:
+  push:
+    branches: [chatgpt-full-lrg-analysis-20260905]
+    paths: [full_lrg/kaiser_refit.py, .github/workflows/full-lrg-kaiser.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  physical:
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [linear, quadratic]
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      NUMBA_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba fitsio matplotlib camb emcee
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33949788858
+          name: full-lrg-v15-differential-bao-results
+          path: results
+      - name: Joint physical fit and posterior sampling
+        run: |
+          python -m py_compile full_lrg/*.py
+          python full_lrg/kaiser_refit.py --input results/measurements_rebin2.npz --template results/camb_bao_template.npz --output physical_results --model ${{ matrix.model }} --steps 6000
+      - name: Record reproduction sources
+        if: always()
+        run: |
+          mkdir -p physical_results/reproduction
+          cp full_lrg/*.py physical_results/reproduction/
+          python -m pip freeze > physical_results/reproduction/environment.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-lrg-kaiser-${{ matrix.model }}
+          path: physical_results
+          compression-level: 0
+          retention-days: 90
+  retain:
+    needs: physical
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-full-lrg-analysis-20260905
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: full-lrg-kaiser-*
+          merge-multiple: true
+          path: physical_results
+      - name: Store compact plots and summaries on the analysis branch only
+        run: |
+          mkdir -p full_lrg_outputs
+          find physical_results -maxdepth 1 -type f \( -name '*.png' -o -name '*.svg' -o -name '*.json' -o -name '*.csv' -o -name '*.md' \) -exec cp {} full_lrg_outputs/ \;
+          git config user.name 'DESI analysis workflow'
+          git config user.email 'noreply@users.noreply.github.com'
+          git add full_lrg_outputs
+          git diff --cached --quiet || git commit -m 'Retain standard Kaiser-model differential BAO fits and robustness diagnostics'
+          git push origin HEAD:chatgpt-full-lrg-analysis-20260905
+      - uses: actions/upload-artifact@v4
+        with:
+          name: full-lrg-v15-physical-differential-bao
+          path: physical_results
+          compression-level: 0
+          retention-days: 90
