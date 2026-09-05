@@ -27,12 +27,12 @@ jobs:
           python -m py_compile direct_desi_analysis/extend_catalog.py
       - name: Install dependencies
         run: python -m pip install 'numpy<2.3' scipy numba matplotlib fitsio camb
-      - name: Download exact matching public NGC catalogues
+      - name: Download exact NGC files from official AWS mirror
         run: |
           mkdir -p catalogs
-          base='https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2'
-          curl -fL --retry 6 --retry-all-errors --connect-timeout 30 --max-time 1800 "$base/LRG_NGC_clustering.dat.fits" -o catalogs/LRG_NGC_clustering.dat.fits
-          curl -fL --retry 6 --retry-all-errors --connect-timeout 30 --max-time 1800 "$base/LRG_NGC_0_clustering.ran.fits" -o catalogs/LRG_NGC_0_clustering.ran.fits
+          base='https://desidata.s3.amazonaws.com/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.2'
+          curl -fL --retry 3 --retry-all-errors --connect-timeout 15 --speed-time 60 --speed-limit 1024 --max-time 900 "$base/LRG_NGC_clustering.dat.fits" -o catalogs/LRG_NGC_clustering.dat.fits
+          curl -fL --retry 3 --retry-all-errors --connect-timeout 15 --speed-time 60 --speed-limit 1024 --max-time 900 "$base/LRG_NGC_0_clustering.ran.fits" -o catalogs/LRG_NGC_0_clustering.ran.fits
           echo 'bb00c32668f0f4155996fb9d22483cf30805ba5f35c8198b19ce6bc51bcc5a65  catalogs/LRG_NGC_clustering.dat.fits' | sha256sum --check
           echo '5f328d03d3c3a8a402b2948d191cd228257bb2ec0cb4886f06e92ef465c8a4ae  catalogs/LRG_NGC_0_clustering.ran.fits' | sha256sum --check
       - name: Measure first and second derivative ingredients
