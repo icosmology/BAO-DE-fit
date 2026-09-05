@@ -1,0 +1,50 @@
+name: Check full LRG BAO nuisance bounds
+on:
+  push:
+    branches: [chatgpt-desi-lrg-v15-full-analysis-20260905]
+    paths: [.github/workflows/check-lrg-bounds.yml, full_lrg_v15/check_bounds.py]
+permissions:
+  contents: write
+  actions: read
+env:
+  MPLBACKEND: Agg
+  PYTHONUNBUFFERED: '1'
+  OMP_NUM_THREADS: '4'
+  OPENBLAS_NUM_THREADS: '1'
+  NUMBA_NUM_THREADS: '4'
+jobs:
+  refit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-desi-lrg-v15-full-analysis-20260905
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba matplotlib
+      - uses: actions/download-artifact@v4
+        with:
+          name: full-lrg-v15-analysis-results
+          run-id: 33950255764
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: previous
+      - run: python full_lrg_v15/check_bounds.py --input previous --output bounds_results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-lrg-v15-boundary-robustness
+          path: bounds_results/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Publish corrected diagnostics on isolated branch
+        if: success()
+        run: |
+          mkdir -p full_lrg_v15/robustness
+          cp bounds_results/*.png bounds_results/*.svg bounds_results/*.json bounds_results/*.csv bounds_results/*.md full_lrg_v15/robustness/
+          git config user.name 'DESI analysis runner'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add full_lrg_v15/robustness
+          git commit -m 'Save full-catalogue nuisance-bound robustness fits'
+          git push origin HEAD:chatgpt-desi-lrg-v15-full-analysis-20260905
