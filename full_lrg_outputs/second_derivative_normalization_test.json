@@ -1,0 +1,5 @@
+{
+  "normalized_quadratic_response_max_error": 2.7755575615628914e-17,
+  "second_derivative_higher_pole_null_error": 7.546047120499111e-17,
+  "fixture": "Analytic polynomial response test using measured RR moments, not a simulated measurement."
+}
