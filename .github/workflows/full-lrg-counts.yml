@@ -1,0 +1,56 @@
+name: Full LRG v1.5 direct pair counts
+on:
+  push:
+    branches: [chatgpt-full-lrg-analysis-20260905]
+    paths: [full_lrg/count_catalogues.py, .github/workflows/full-lrg-counts.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba fitsio
+      - run: python -m py_compile full_lrg/count_catalogues.py && python full_lrg/count_catalogues.py --self-test --threads 4
+  count:
+    needs: validate
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        cap: [NGC, SGC]
+        part: [0, 1, 2, 3, 4, 5, 6, 7]
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    env:
+      OMP_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba fitsio
+      - name: Restore exact archived full catalogue files
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33948207375
+          pattern: DESI-DR1-v1.5-LRG-${{ matrix.cap }}-*
+          merge-multiple: true
+          path: catalogues
+      - name: Count disjoint row partition; every data and random object retained
+        run: |
+          python full_lrg/count_catalogues.py --cap ${{ matrix.cap }} --part ${{ matrix.part }} --parts 8 --threads 4 --input catalogues --output partial
+      - uses: actions/upload-artifact@v4
+        with:
+          name: full-lrg-counts-${{ matrix.cap }}-${{ matrix.part }}
+          path: partial
+          compression-level: 0
+          retention-days: 90
