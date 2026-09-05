@@ -1,0 +1,71 @@
+name: Package completed full LRG analysis
+on:
+  push:
+    branches: [chatgpt-desi-lrg-v15-full-analysis-20260905]
+    paths: [.github/workflows/package-lrg-results.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-desi-lrg-v15-full-analysis-20260905
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy
+      - uses: actions/download-artifact@v4
+        with:
+          name: full-lrg-v15-analysis-results
+          run-id: 33950255764
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: original
+      - uses: actions/download-artifact@v4
+        with:
+          name: full-lrg-v15-boundary-robustness
+          run-id: 33951316368
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: robustness
+      - name: Assemble compact actual-data products
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, shutil, numpy as np
+          out=Path('delivery');out.mkdir()
+          plots=out/'plots';plots.mkdir()
+          for path in Path('original').glob('*'):
+              if path.suffix in ('.png','.svg') and (path.name.startswith(('xi_ell','dxi_dz_ell','d2xi_dz2_ell','redshift_kernels'))):shutil.copy2(path,plots/path.name)
+          for path in Path('robustness').glob('*'):
+              if path.suffix in ('.png','.svg'):shutil.copy2(path,plots/path.name)
+              if path.suffix in ('.npz','.json','.csv') and not path.name.startswith('expanded_template'):shutil.copy2(path,out/path.name)
+          for name in ['measured_multipoles.csv','count_audit.json','redshift_kernels.csv','template_manifest.json']:shutil.copy2(Path('original')/name,out/name)
+          f=np.load('original/clustering_and_jackknife.npz')
+          keep=['s','mu','z','all_multipoles','covariance','error','RR_moments','pair_z','first_z','second_z','first_variance','second_variance','legendre_weights']
+          payload={k:f[k] for k in keep};payload['mean_model_kernels']=f['kernels'][0];payload['mean_RR_redshift_histogram']=f['RR_histogram'][0]
+          np.savez_compressed(out/'measured_clustering_all_jackknife_covariance.npz',**payload)
+          code=out/'code';code.mkdir()
+          for p in Path('full_lrg_v15').glob('*.py'):shutil.copy2(p,code/p.name)
+          audit=json.loads((out/'count_audit.json').read_text());r=json.loads((out/'robustness_summary.json').read_text())
+          text='''# Completed full DESI DR1 v1.5 LRG analysis\n\nThe local ChatGPT execution service failed before executing Python. The analysis was run to completion on clean GitHub Actions runners on an isolated branch; main was unchanged.\n\n## Actual measurements\nAll 2,138,627 selected LRG galaxies and all 14,346,758 selected random_0 points from NGC and SGC; no thinning. Redshift 0.4 <= z < 1.1. Pre-reconstruction, 0.05 degree angular pair cut. Separation 40--160 Mpc/h in 6 Mpc/h bins and 20 mu bins. 120 spatial delete-one realizations.\n\nxi, first derivative and normalized second derivative are measured directly from pair-redshift moments. RR moments through order six and random pair redshift histograms were computed. These are finite-resolution derivative observables.\n\n## Conditional BAO results\nBoth AP distance anchors and their evolution were fitted. CAMB-based acoustic template, a light-cone average with the actual s,mu,z random kernels, linear or quadratic log-AP evolution, profiled amplitude/broadband evolution.\n\nThe initial fit saturated damping limits, so the final diagnostic fit uses positive endpoint damping in [0,30] Mpc/h and beta endpoints in [0.001,3]. The high-redshift beta still reaches its lower limit in most jackknife fits. Hence the quoted BAO errors are model-conditional diagnostic errors, not a calibrated DESI cosmological likelihood. Curvature/shape-function claims are especially premature.\n\nThe fit uses 50-percent diagonal shrinkage of the joint jackknife correlation matrix; parameter uncertainties come from refitting all 120 deletions. Alternative regularization and separation ranges are tabulated.\n\n## Files\nplots/: actual measurements with jackknife errors and revised BAO fits.\nmeasured_multipoles.csv: all three derivative orders and ell=0,2,4, with errors.\nmeasured_clustering_all_jackknife_covariance.npz: all leave-one-out multipoles, covariance, exact random moments, and the mean redshift kernels.\nrobustness_summary.json: final linear/quadratic model fits, cross-covariances, boundary hits and sensitivity checks.\ncode/: reproduction scripts.\n\nThe full original artifact also contains every deletion's complete redshift kernel, omitted from this compact package. Original run 33950255764; revised fit run 33951316368.\n\nNo published BAO distance table or simulated clustering was used as the measured data. No post-reconstruction, mock-covariance, fiber-assignment/RIC/AMR validation or official-DESI equivalence is claimed. S0/S1 normalized at z=0 cannot be inferred from this LRG interval without additional information.\n'''
+          (out/'README.md').write_text(text)
+          print(text)
+          print('DELIVERY_FILES',[(p.name,p.stat().st_size) for p in out.iterdir() if p.is_file()])
+          print('RECOMMENDED_CONDITIONAL_FIRST_DERIVATIVES',r['linear_AP_wide_nuisance']['dDM_over_rd_dz'],r['linear_AP_wide_nuisance']['dDH_over_rd_dz'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-LRG-v15-completed-compact-results
+          path: delivery/
+          retention-days: 90
+          compression-level: 6
+      - name: Publish delivery README on analysis branch
+        run: |
+          cp delivery/README.md full_lrg_v15/DELIVERY_README.md
+          git config user.name 'DESI analysis runner'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add full_lrg_v15/DELIVERY_README.md
+          git commit -m 'Document completed full-sample analysis and remaining inference caveats'
+          git push origin HEAD:chatgpt-desi-lrg-v15-full-analysis-20260905
