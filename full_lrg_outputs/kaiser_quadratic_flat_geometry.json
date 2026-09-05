@@ -1,10 +1,10 @@
 {
   "quantiles": [
-    -5.847352464430806,
-    -3.613964248805555,
-    -1.455486089059475,
-    0.6196203729549522,
-    2.817533410330185
+    -5.899498436824751,
+    -3.7205551446840657,
+    -1.5818132800332823,
+    0.5232238283132741,
+    2.7320538360696855
   ],
   "meaning": "Same fitted latent functions and pivot; conditional on finite redshift model, not a model-free matched-kernel null test."
 }
