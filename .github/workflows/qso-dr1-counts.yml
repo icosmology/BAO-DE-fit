@@ -1,0 +1,118 @@
+name: Full DR1 QSO derivative pair counts
+on:
+  push:
+    branches: [chatgpt-qso-dr1-analysis-20260908]
+    paths: ['.github/workflows/qso-dr1-counts.yml', 'qso_analysis/prepare_qso.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cap: [NGC, SGC]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install fitsio numpy
+      - name: Download complete original QSO FITS and validate
+        env:
+          CAP: ${{ matrix.cap }}
+        run: |
+          mkdir -p catalogues
+          python - <<'PY'
+          import os,pathlib,subprocess,hashlib,json, fitsio
+          cap=os.environ['CAP']
+          sizes={'NGC':(83298240,1312021440),'SGC':(45178560,735863040)}
+          base='https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.5/'
+          out=pathlib.Path('catalogues'); audit=[]
+          for name,expected in zip([f'QSO_{cap}_clustering.dat.fits',f'QSO_{cap}_0_clustering.ran.fits'],sizes[cap]):
+              p=out/name
+              subprocess.run(['curl','-fL','--retry','8','--retry-all-errors','--retry-delay','4','--connect-timeout','40','--max-time','1800','-o',str(p),base+name],check=True)
+              assert p.stat().st_size==expected,(p,p.stat().st_size,expected)
+              with fitsio.FITS(str(p)) as f:
+                  cols=f[1].get_colnames(); rows=f[1].get_nrows()
+                  assert all(k in cols for k in ['RA','DEC','Z','WEIGHT','WEIGHT_FKP'])
+              with p.open('rb') as f: sha=hashlib.file_digest(f,'sha256').hexdigest()
+              audit.append({'file':name,'url':base+name,'bytes':expected,'rows':rows,'sha256':sha,'columns':cols,'thinning':False})
+          (out/f'{cap}_download_manifest.json').write_text(json.dumps(audit,indent=2))
+          print(json.dumps(audit,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QSO-DR1-v15-input-${{ matrix.cap }}
+          path: catalogues/
+          retention-days: 90
+          compression-level: 3
+  counts:
+    needs: download
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        cap: [NGC, SGC]
+        part: [0,1,2,3,4,5,6,7]
+    env:
+      OMP_NUM_THREADS: '4'
+      OPENBLAS_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy numba fitsio matplotlib
+      - uses: actions/download-artifact@v4
+        with:
+          name: QSO-DR1-v15-input-${{ matrix.cap }}
+          path: catalogues
+      - name: Adapt and test exact pair-moment counting
+        run: |
+          python qso_analysis/prepare_qso.py
+          python qso_runtime/count_catalogues.py --self-test --threads 4
+      - name: Count all selected pairs in this disjoint partition
+        run: |
+          python qso_runtime/count_catalogues.py --cap ${{ matrix.cap }} --part ${{ matrix.part }} --parts 8 --threads 4 --input catalogues --output partial
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QSO-part-${{ matrix.cap }}-${{ matrix.part }}
+          path: partial/
+          retention-days: 90
+          compression-level: 3
+  reduce:
+    needs: counts
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' scipy matplotlib numba fitsio
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: QSO-part-*
+          path: partials
+          merge-multiple: true
+      - run: |
+          python qso_analysis/prepare_qso.py
+          python qso_runtime/reduce_counts.py --input partials --output qso_measurements
+          cp -r qso_runtime qso_measurements/reproduction
+          cp qso_analysis/prepare_qso.py qso_measurements/reproduction/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QSO-full-direct-measurements
+          path: qso_measurements/
+          compression-level: 6
+          retention-days: 90
