@@ -1,0 +1,562 @@
+[
+  {
+    "root_attrs": {}
+  },
+  {
+    "path": "covariance",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "covariance/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/RR0",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/norm",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/s",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/s_edges",
+    "shape": [
+      26,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/value",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/0/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/labels_names",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/labels_values",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/observable/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "covariance/value",
+    "shape": [
+      26,
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "observable",
+    "shape": null,
+    "attrs": {
+      "zeff": "1.4820968970409303"
+    }
+  },
+  {
+    "path": "observable/0",
+    "shape": null,
+    "attrs": {
+      "zeff": "1.4820968970409303"
+    }
+  },
+  {
+    "path": "observable/0/RR0",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/norm",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/s",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/s_edges",
+    "shape": [
+      26,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/value",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/0/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/labels_names",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "observable/labels_values",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "observable/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable",
+    "shape": null,
+    "attrs": {
+      "zeff": "1.4820968970409303"
+    }
+  },
+  {
+    "path": "window/observable/0",
+    "shape": null,
+    "attrs": {
+      "zeff": "1.4820968970409303"
+    }
+  },
+  {
+    "path": "window/observable/0/RR0",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/norm",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/s",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/s_edges",
+    "shape": [
+      26,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/value",
+    "shape": [
+      26
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/0/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/labels_names",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/labels_values",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/observable/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/RR0",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/norm",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/s",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/s_edges",
+    "shape": [
+      200,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/value",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/0/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/RR0",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/norm",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/s",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/s_edges",
+    "shape": [
+      200,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/value",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/2/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/RR0",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/coords_names",
+    "shape": [
+      1
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/meta",
+    "shape": null,
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/meta/ell",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/norm",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/s",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/s_edges",
+    "shape": [
+      200,
+      2
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/value",
+    "shape": [
+      200
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/4/values_names",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/labels_names",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/labels_values",
+    "shape": [
+      3
+    ],
+    "attrs": {}
+  },
+  {
+    "path": "window/theory/name",
+    "shape": [],
+    "attrs": {}
+  },
+  {
+    "path": "window/value",
+    "shape": [
+      26,
+      600
+    ],
+    "attrs": {}
+  }
+]

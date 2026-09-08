@@ -1,0 +1,60 @@
+[
+  {
+    "failed": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/likelihood/",
+    "error": "HTTPError('404 Client Error: Not Found for url: https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/likelihood/')"
+  },
+  {
+    "failed": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/recsym/correlation/",
+    "error": "HTTPError('404 Client Error: Not Found for url: https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/recsym/correlation/')"
+  },
+  {
+    "failed": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/pre/correlation/",
+    "error": "HTTPError('404 Client Error: Not Found for url: https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/data_v1.2/pre/correlation/')"
+  },
+  {
+    "directory": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/likelihood/",
+    "qso_files": [
+      "likelihood_bao-recon_stat-only_QSO_GCcomb_z0.8-2.1.h5",
+      "likelihood_bao-recon_syst_QSO_GCcomb_z0.8-2.1.h5",
+      "likelihood_correlation-recon-poles_QSO_GCcomb_z0.8-2.1.h5",
+      "likelihood_correlation-recon-poles_QSO_NGC_z0.8-2.1.h5",
+      "likelihood_correlation-recon-poles_QSO_SGC_z0.8-2.1.h5"
+    ]
+  },
+  {
+    "url": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/likelihood/likelihood_correlation-recon-poles_QSO_GCcomb_z0.8-2.1.h5",
+    "filename": "likelihood_correlation-recon-poles_QSO_GCcomb_z0.8-2.1.h5",
+    "bytes": 205145,
+    "sha256": "c91e72240121eb6d5635a7d9ebdf2b54158e092eaa2a0c66a354a51fed576fee"
+  },
+  {
+    "url": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/likelihood/likelihood_correlation-recon-poles_QSO_NGC_z0.8-2.1.h5",
+    "filename": "likelihood_correlation-recon-poles_QSO_NGC_z0.8-2.1.h5",
+    "bytes": 205145,
+    "sha256": "c55c861294c450d60bf083eed63517f08ddb643c5090c5bb786838a02138999c"
+  },
+  {
+    "url": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/likelihood/likelihood_correlation-recon-poles_QSO_SGC_z0.8-2.1.h5",
+    "filename": "likelihood_correlation-recon-poles_QSO_SGC_z0.8-2.1.h5",
+    "bytes": 205145,
+    "sha256": "a91b606e2accea0a1b3d05f1d9e51525eadd0fb94f7c209b1fcc7456562698cb"
+  },
+  {
+    "directory": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/recsym/correlation/",
+    "qso_files": [
+      "correlation-recsym-poles_QSO_GCcomb_z0.8-2.1.h5",
+      "correlation-recsym-poles_QSO_NGC_z0.8-2.1.h5",
+      "correlation-recsym-poles_QSO_SGC_z0.8-2.1.h5",
+      "counts-recsym-smu_QSO_GCcomb_z0.8-2.1.h5",
+      "counts-recsym-smu_QSO_NGC_z0.8-2.1.h5",
+      "counts-recsym-smu_QSO_SGC_z0.8-2.1.h5",
+      "window_correlation-recsym-poles_QSO_GCcomb_z0.8-2.1.h5",
+      "window_correlation-recsym-poles_QSO_NGC_z0.8-2.1.h5",
+      "window_correlation-recsym-poles_QSO_SGC_z0.8-2.1.h5"
+    ]
+  },
+  {
+    "failed": "https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/pre/correlation/",
+    "error": "HTTPError('404 Client Error: Not Found for url: https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/v1.0/data_v1.2/pre/correlation/')"
+  }
+]
