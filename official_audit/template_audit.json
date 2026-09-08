@@ -1,0 +1,21 @@
+{
+  "template_class": "<class 'desilike.theories.galaxy_clustering.power_template.BAOPowerSpectrumTemplate'>",
+  "theory_class": "<class 'desilike.theories.galaxy_clustering.bao.DampedBAOWigglesTracerCorrelationFunctionMultipoles'>",
+  "model": "standard",
+  "broadband": "pcs2",
+  "nowiggle": "peakaverage",
+  "cosmology_engine": "class",
+  "z": 1.49,
+  "native_params": "ParameterCollection(['qpar', 'qper', 'DM_over_rd', 'DH_over_rd', 'DH_over_DM', 'DV_over_rd', 'b1', 'dbeta', 'sigmas', 'sigmapar', 'sigmaper', 'al0_-1', 'al0_0', 'al0_1', 'al0_2', 'al2_-1', 'al2_0', 'al2_1', 'al2_2', 'bl0_0', 'bl0_2', 'bl2_0', 'bl2_2'])",
+  "cosmology": "<cosmoprimo.cosmology.Cosmology object at 0x7f3f7b744a90>",
+  "rd": 99.08442712512229,
+  "native_source_sha256": "2742ae1a379c40195ebea696f47814101dc3c80dc7f68f4b8f23adfe30e4d94c",
+  "native_jit_abs_error": 0.00015292430495258622,
+  "jit_compile_seconds": 1.0386598110198975,
+  "jit_eval_seconds": 0.00031603574752807616,
+  "native_vmap_abs_error": 0.00015292430495258622,
+  "vmap_compile_seconds": 0.9725241661071777,
+  "vmap16_eval_seconds": 0.005226588249206543,
+  "DR1_calculate_AST_identical": true,
+  "DR1_source_ref": "a533f2ae958028f81f31d52b0e05672fb0f31b6b"
+}
