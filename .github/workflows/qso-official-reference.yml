@@ -1,0 +1,66 @@
+name: QSO official DR1 reference discovery
+on:
+  push:
+    branches: [chatgpt-qso-official-windowed-20260908]
+    paths: ['.github/workflows/qso-official-reference.yml']
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy h5py requests
+      - name: Download official reference files and inspect their structure
+        run: |
+          mkdir -p official_reference
+          python - <<'PY'
+          import requests,json,re,pathlib,hashlib,h5py,traceback
+          out=pathlib.Path('official_reference');sess=requests.Session()
+          nb=sess.get('https://raw.githubusercontent.com/cosmodesi/desi-kp-cosmological-likelihoods/main/dr1/read_clustering_statistics.ipynb',timeout=60).json()
+          cells=[x['source'] for x in nb['cells'] if x['cell_type']=='code']
+          (out/'official_reading_code.py').write_text('\n\n'.join(''.join(c) if isinstance(c,list) else c for c in cells))
+          for c in cells:
+              t=''.join(c) if isinstance(c,list) else c
+              if any(k in t for k in ['load','QSO','Observable','Covariance']):print('NOTEBOOK_CODE',t,flush=True)
+          base='https://data.desi.lbl.gov/public/dr1/vac/dr1/full-shape-bao-clustering/'
+          audit=[]
+          for root in [base,base+'v1.0/']:
+              for sub in ['data_v1.2/likelihood/','data_v1.2/recsym/correlation/','data_v1.2/pre/correlation/']:
+                  url=root+sub
+                  try:
+                      r=sess.get(url,timeout=40);r.raise_for_status();txt=r.text
+                      links=re.findall(r'href="([^"]+)"',txt);ql=[x for x in links if 'QSO' in x]
+                      print('DIRECTORY',url,ql,flush=True)
+                      entry={'directory':url,'qso_files':ql};audit.append(entry)
+                      for name in ql:
+                          if ('likelihood_correlation-recon-poles_' in name or ('0.8' in name and ('GCcomb' in name or 'NGC' in name or 'SGC' in name) and (name.endswith('.txt') or name.endswith('.npy')))):
+                              rr=sess.get(url+name,timeout=90);rr.raise_for_status();p=out/name;p.write_bytes(rr.content)
+                              item={'url':url+name,'filename':name,'bytes':len(rr.content),'sha256':hashlib.sha256(rr.content).hexdigest()};audit.append(item)
+                              if name.endswith('.h5'):
+                                  schema=[]
+                                  with h5py.File(p) as f:
+                                      schema.append({'root_attrs':{k:str(v)[:2000] for k,v in f.attrs.items()}})
+                                      def visit(n,o):schema.append({'path':n,'shape':list(o.shape) if hasattr(o,'shape') else None,'attrs':{k:str(v)[:2000] for k,v in o.attrs.items()}})
+                                      f.visititems(visit)
+                                  (out/'h5_schema.json').write_text(json.dumps(schema,indent=2));print('HDF5',json.dumps(schema),flush=True)
+                  except Exception as e:audit.append({'failed':url,'error':repr(e)});print('FETCH_FAILED',url,repr(e),flush=True)
+          (out/'reference_manifest.json').write_text(json.dumps(audit,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QSO-official-reference-files
+          path: official_reference/
+          retention-days: 90
+      - name: Publish reference provenance on isolated branch
+        run: |
+          git config user.name 'DESI reference audit'
+          git config user.email 'actions@users.noreply.github.com'
+          git add official_reference
+          git commit -m 'Store released DR1 reference likelihood and reading instructions'
+          git pull --rebase origin chatgpt-qso-official-windowed-20260908
+          git push origin HEAD:chatgpt-qso-official-windowed-20260908
