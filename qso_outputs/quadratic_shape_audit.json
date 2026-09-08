@@ -1,0 +1,29 @@
+{
+  "normalization": "S0p and S1p normalized at z_p=1.49, NOT at z=0; S2 has no anchor normalization",
+  "conditional_on": "quadratic",
+  "posterior_fraction_Fx_crosses_zero": 0.7969367588932806,
+  "prior_fraction_Fx_crosses_zero": 0.715,
+  "posterior_fraction_positive_Fx_at_pivot": 0.5763339920948617,
+  "warning": "Ratios can have poles. Quantiles do not define Gaussian uncertainties; finite means/variances are not asserted. The pivot pinch S0p=S1p=1 is imposed normalization, not observational precision.",
+  "S0_at_pivot_quantiles": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "S1_at_pivot_quantiles": [
+    0.999999999999998,
+    0.9999999999999999,
+    1.0,
+    1.0000000000000002,
+    1.0000000000000024
+  ],
+  "S2_at_pivot_quantiles": [
+    -45.740323342491486,
+    -4.322705377859343,
+    1.703351387928389,
+    9.07532877082139,
+    50.99792525492366
+  ]
+}

@@ -1,0 +1,448 @@
+{
+  "dataset": "actual DESI DR1 LSS v1.5 QSO NGC+SGC, complete selected data and random_0; no thinning",
+  "redshift_range": [
+    0.8,
+    2.1
+  ],
+  "pivot": 1.49,
+  "redshift_scale": 0.65,
+  "model": "quadratic",
+  "derivative_orders": [
+    0,
+    1,
+    2
+  ],
+  "data_dimension": 78,
+  "raw_covariance_rank": 78,
+  "diagonal_shrinkage": 0.2,
+  "parameter_names": [
+    "ln_alpha_perp_p",
+    "ln_alpha_parallel_p",
+    "dln_alpha_perp_du",
+    "dln_alpha_parallel_du",
+    "d2ln_alpha_perp_du2",
+    "d2ln_alpha_parallel_du2",
+    "Sigma_perp_effective",
+    "Sigma_parallel_effective",
+    "ln_A_p",
+    "dln_A_du",
+    "d2ln_A_du2",
+    "beta_p",
+    "dbeta_du"
+  ],
+  "hard_bounds": {
+    "ln_alpha_perp_p": [
+      -0.2,
+      0.2
+    ],
+    "ln_alpha_parallel_p": [
+      -0.2,
+      0.2
+    ],
+    "dln_alpha_perp_du": [
+      -0.6,
+      0.6
+    ],
+    "dln_alpha_parallel_du": [
+      -0.6,
+      0.6
+    ],
+    "d2ln_alpha_perp_du2": [
+      -1.2,
+      1.2
+    ],
+    "d2ln_alpha_parallel_du2": [
+      -1.2,
+      1.2
+    ],
+    "Sigma_perp_effective": [
+      1.0,
+      6.0
+    ],
+    "Sigma_parallel_effective": [
+      4.0,
+      20.0
+    ],
+    "ln_A_p": [
+      -1.0,
+      4.0
+    ],
+    "dln_A_du": [
+      -2.0,
+      2.0
+    ],
+    "d2ln_A_du2": [
+      -4.0,
+      4.0
+    ],
+    "beta_p": [
+      0.01,
+      1.2
+    ],
+    "dbeta_du": [
+      -0.8,
+      0.8
+    ]
+  },
+  "damping_priors": "effective Sigma_perp=3 +/- 1, Sigma_parallel=8 +/- 3 Mpc/h; includes radial smearing approximately, not a separate redshift-error likelihood",
+  "broadband_prior": "Gaussian coefficient sigma=50 on each column normalized with factor20; coefficients analytically marginalized",
+  "parameters": {
+    "ln_alpha_perp_p": {
+      "p2p5": -0.05301675910108054,
+      "p16": -0.005641637915107235,
+      "median": 0.036627688769234876,
+      "p84": 0.0779076264705568,
+      "p97p5": 0.118500810468589
+    },
+    "ln_alpha_parallel_p": {
+      "p2p5": -0.18395908249142756,
+      "p16": -0.13281394628105953,
+      "median": -0.062270193109154284,
+      "p84": 0.011533812866491201,
+      "p97p5": 0.10105738450352728
+    },
+    "dln_alpha_perp_du": {
+      "p2p5": -0.10915976342793228,
+      "p16": -0.015417201885008096,
+      "median": 0.07379691250183273,
+      "p84": 0.14555738737016471,
+      "p97p5": 0.22328106888730462
+    },
+    "dln_alpha_parallel_du": {
+      "p2p5": -0.2773840717101127,
+      "p16": -0.14576100934506017,
+      "median": -0.007565812368686973,
+      "p84": 0.12723530511396122,
+      "p97p5": 0.26017669150027933
+    },
+    "d2ln_alpha_perp_du2": {
+      "p2p5": -0.7416946791452587,
+      "p16": -0.5193368493539977,
+      "median": -0.2595534545764909,
+      "p84": 0.0768346175246162,
+      "p97p5": 0.4404038357455576
+    },
+    "d2ln_alpha_parallel_du2": {
+      "p2p5": -0.6258614072425867,
+      "p16": -0.26036400513949853,
+      "median": 0.1870640314634558,
+      "p84": 0.5958311120999825,
+      "p97p5": 0.8838150987350643
+    },
+    "Sigma_perp_effective": {
+      "p2p5": 1.3197553701260665,
+      "p16": 2.065569057552312,
+      "median": 3.0079390997250686,
+      "p84": 3.9566435360329644,
+      "p97p5": 4.912029959935849
+    },
+    "Sigma_parallel_effective": {
+      "p2p5": 4.821013110647244,
+      "p16": 6.893561911166832,
+      "median": 9.740658520624336,
+      "p84": 12.528459754451145,
+      "p97p5": 15.190360980613487
+    },
+    "ln_A_p": {
+      "p2p5": 0.7058065052010271,
+      "p16": 1.2818913785358304,
+      "median": 1.732170773501937,
+      "p84": 2.0822019158413845,
+      "p97p5": 2.3460023860405324
+    },
+    "dln_A_du": {
+      "p2p5": -1.429916384033311,
+      "p16": -0.6375401002542611,
+      "median": 0.017830337225328396,
+      "p84": 0.6990080150990743,
+      "p97p5": 1.4285184040296546
+    },
+    "d2ln_A_du2": {
+      "p2p5": -3.90968658442669,
+      "p16": -3.411434795887134,
+      "median": -2.0864187628596125,
+      "p84": -0.24625767968575613,
+      "p97p5": 1.5534742788049294
+    },
+    "beta_p": {
+      "p2p5": 0.06967681467777495,
+      "p16": 0.19464527079789018,
+      "median": 0.4326720671533716,
+      "p84": 0.7447549508711419,
+      "p97p5": 1.0425581090426923
+    },
+    "dbeta_du": {
+      "p2p5": -0.5599749666881537,
+      "p16": -0.30632708212041515,
+      "median": -0.023978553118592205,
+      "p84": 0.23776842309896037,
+      "p97p5": 0.5217560383621012
+    }
+  },
+  "distances_and_derivatives": {
+    "DM_over_rd": {
+      "p2p5": 28.78778283440347,
+      "p16": 30.18442947491679,
+      "median": 31.48765416741412,
+      "p84": 32.81466356865495,
+      "p97p5": 34.1741209243572
+    },
+    "DH_over_rd": {
+      "p2p5": 10.683268071604179,
+      "p16": 11.243879342326652,
+      "median": 12.065711569221454,
+      "p84": 12.989894139752773,
+      "p97p5": 14.2064381533705
+    },
+    "dDM_over_rd_dz": {
+      "p2p5": 8.091112516426744,
+      "p16": 12.611720771592138,
+      "median": 16.88775897066192,
+      "p84": 20.312164696789118,
+      "p97p5": 23.983898228139612
+    },
+    "dDH_over_rd_dz": {
+      "p2p5": -11.863466100551951,
+      "p16": -9.263365402600009,
+      "median": -6.528179954388464,
+      "p84": -3.9692832506060194,
+      "p97p5": -1.5203526151756812
+    },
+    "d2DM_over_rd_dz2": {
+      "p2p5": -65.36612887492085,
+      "p16": -43.56408041400561,
+      "median": -21.838843839784122,
+      "p84": 2.0880000025461665,
+      "p97p5": 28.39393509228736
+    },
+    "d2DH_over_rd_dz2": {
+      "p2p5": -13.357485456151506,
+      "p16": -1.4434869398079038,
+      "median": 11.473751941784485,
+      "p84": 21.2520802041662,
+      "p97p5": 27.48404007601841
+    }
+  },
+  "kinematics": {
+    "DV_over_rd": {
+      "p2p5": 24.666833791485736,
+      "p16": 25.43475424728915,
+      "median": 26.172795498316546,
+      "p84": 26.846967384713516,
+      "p97p5": 27.59335921601135
+    },
+    "isotropic_fractional_distance_slope": {
+      "p2p5": -0.022347289521014432,
+      "p16": 0.08302342970499273,
+      "median": 0.17524216442359447,
+      "p84": 0.2596177096614267,
+      "p97p5": 0.3439306964636344
+    },
+    "q_pivot": {
+      "p2p5": -0.681651598927465,
+      "p16": -0.17238382646295428,
+      "median": 0.3440081466628828,
+      "p84": 0.8734020550800665,
+      "p97p5": 1.377619632447729
+    },
+    "dDMdz_minus_DH": {
+      "p2p5": -4.057884538456902,
+      "p16": 0.4255192039683423,
+      "median": 4.655615629255171,
+      "p84": 8.25651885660746,
+      "p97p5": 12.116293583014354
+    }
+  },
+  "best_fit": [
+    0.040465978941043174,
+    -0.030620955374879664,
+    0.10633460108906712,
+    -0.08031089155260468,
+    -0.3069156721186399,
+    0.12340012541986314,
+    2.4709569449722926,
+    9.8235649565578,
+    2.1194495061187273,
+    -0.06542208987006112,
+    -1.7736433436763523,
+    0.11271958090843948,
+    -0.015071876199553524
+  ],
+  "chi2_data_at_conditional_best": 29.469705429029677,
+  "nonlinear_parameters": 13,
+  "broadband_parameters": 18,
+  "independent_ensembles": 2,
+  "walkers_per_ensemble": 52,
+  "steps_per_ensemble": 7000,
+  "burn_in": 2333,
+  "acceptance_fractions": [
+    0.23557142857142857,
+    0.23101098901098902
+  ],
+  "autocorrelation_estimates": [
+    [
+      302.17342253011327,
+      345.5321117448547,
+      292.8315821345228,
+      286.2756400571434,
+      300.2857917874006,
+      356.9791363697839,
+      294.7556051423546,
+      314.2670261107867,
+      280.1177695230828,
+      349.94625914423693,
+      338.492384142565,
+      345.80174504489486,
+      390.1865810782428
+    ],
+    [
+      289.85310080674236,
+      292.98744168559233,
+      349.020902825022,
+      314.36530359519816,
+      329.45921812247724,
+      287.97097980175823,
+      287.67080335559007,
+      294.69680533010035,
+      271.5991805704314,
+      363.46196885290084,
+      346.7773960803046,
+      322.7302886562616,
+      321.23148161050057
+    ]
+  ],
+  "retained_steps_over_max_tau": [
+    11.960944395122963,
+    12.840408075511233
+  ],
+  "effective_sample_estimate": 1289.6703284729783,
+  "half_chain_shift_in_posterior_sigma": [
+    [
+      0.13517571556190353,
+      -0.05155083868684057,
+      0.05246726887760368,
+      -0.09268528059807274,
+      -0.07162966468065708,
+      0.14412891093297975,
+      0.09381490644962973,
+      0.1366454038803031,
+      -0.0350507997815005,
+      -0.04387645661966215,
+      0.014875158903396234,
+      0.11096578431805,
+      -0.06383113831845035
+    ],
+    [
+      -0.0009227636359961572,
+      -0.007058768431026222,
+      -0.03758962034500461,
+      0.07862059926649884,
+      -0.06140538512337007,
+      0.04953424892364675,
+      0.015940775302822455,
+      0.12246541729407351,
+      0.09221712730368233,
+      0.017804827782490144,
+      -0.15322786401783442,
+      -0.005069838380771162,
+      0.015223476617829903
+    ]
+  ],
+  "ensemble_median_difference_in_posterior_sigma": [
+    0.05301498016872962,
+    0.037936329596715286,
+    -0.0034643306936012756,
+    -0.05051733830144295,
+    0.04801879539915527,
+    0.0257590483057805,
+    -0.03435578972973974,
+    -0.048168418334253386,
+    -0.04077698629996285,
+    -0.00365070454396835,
+    0.05158338136308574,
+    -0.03737486318062677,
+    -0.048317293531551446
+  ],
+  "boundary_fractions": {
+    "ln_alpha_perp_p": 0.0003912040849942349,
+    "ln_alpha_parallel_p": 0.012364108054686213,
+    "dln_alpha_perp_du": 0.0,
+    "dln_alpha_parallel_du": 0.0,
+    "d2ln_alpha_perp_du2": 0.0,
+    "d2ln_alpha_parallel_du2": 0.0001235381321034426,
+    "Sigma_perp_effective": 0.006269560204249712,
+    "Sigma_parallel_effective": 0.007927030143304233,
+    "ln_A_p": 6.17690660517213e-05,
+    "dln_A_du": 0.0039017460056003954,
+    "d2ln_A_du2": 0.04451490693460715,
+    "beta_p": 0.007999094053697907,
+    "dbeta_du": 0.0
+  },
+  "redshift_quadrature_max_error_in_raw_diagonal_sigma": 0.025292054232551917,
+  "covariance_sensitivity": [
+    {
+      "diagonal_shrinkage": 0.1,
+      "optimizer_success": true,
+      "objective": 16.997140484200045,
+      "derived_at_pivot": [
+        31.608745163270097,
+        12.453689358683318,
+        18.54213762064247,
+        -8.115793061655568,
+        -24.802345067430867,
+        10.59046018764856
+      ]
+    },
+    {
+      "diagonal_shrinkage": 0.4,
+      "optimizer_success": true,
+      "objective": 13.098418347866719,
+      "derived_at_pivot": [
+        31.608745163270097,
+        12.453689358683318,
+        18.54213762064247,
+        -8.115793061655568,
+        -24.802345067430867,
+        10.59046018764856
+      ]
+    }
+  ],
+  "seconds": 308.639128446579,
+  "limitations": [
+    "Pre-reconstruction; no mock calibration or reconstruction performed.",
+    "Same weighted random0 and analysis choices as stated; not the DESI official QSO likelihood.",
+    "Distance and shape derivatives conditional on log-AP redshift polynomial and positive Kaiser angular model.",
+    "Finite angular binning, Gaussian covariance and shrinkage, radial smearing approximation and integral constraints need mock validation.",
+    "Shape ratios can be singular; S0p,S1p use internal pivot, not present-day normalization.",
+    "No claim of new information relative to standard DESI without joint mock cross-covariance."
+  ],
+  "shape_audit": {
+    "normalization": "S0p and S1p normalized at z_p=1.49, NOT at z=0; S2 has no anchor normalization",
+    "conditional_on": "quadratic",
+    "posterior_fraction_Fx_crosses_zero": 0.7969367588932806,
+    "prior_fraction_Fx_crosses_zero": 0.715,
+    "posterior_fraction_positive_Fx_at_pivot": 0.5763339920948617,
+    "warning": "Ratios can have poles. Quantiles do not define Gaussian uncertainties; finite means/variances are not asserted. The pivot pinch S0p=S1p=1 is imposed normalization, not observational precision.",
+    "S0_at_pivot_quantiles": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "S1_at_pivot_quantiles": [
+      0.999999999999998,
+      0.9999999999999999,
+      1.0,
+      1.0000000000000002,
+      1.0000000000000024
+    ],
+    "S2_at_pivot_quantiles": [
+      -45.740323342491486,
+      -4.322705377859343,
+      1.703351387928389,
+      9.07532877082139,
+      50.99792525492366
+    ]
+  }
+}

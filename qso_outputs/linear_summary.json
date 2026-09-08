@@ -1,0 +1,409 @@
+{
+  "dataset": "actual DESI DR1 LSS v1.5 QSO NGC+SGC, complete selected data and random_0; no thinning",
+  "redshift_range": [
+    0.8,
+    2.1
+  ],
+  "pivot": 1.49,
+  "redshift_scale": 0.65,
+  "model": "linear",
+  "derivative_orders": [
+    0,
+    1
+  ],
+  "data_dimension": 52,
+  "raw_covariance_rank": 52,
+  "diagonal_shrinkage": 0.2,
+  "parameter_names": [
+    "ln_alpha_perp_p",
+    "ln_alpha_parallel_p",
+    "dln_alpha_perp_du",
+    "dln_alpha_parallel_du",
+    "Sigma_perp_effective",
+    "Sigma_parallel_effective",
+    "ln_A_p",
+    "dln_A_du",
+    "d2ln_A_du2",
+    "beta_p",
+    "dbeta_du"
+  ],
+  "hard_bounds": {
+    "ln_alpha_perp_p": [
+      -0.2,
+      0.2
+    ],
+    "ln_alpha_parallel_p": [
+      -0.2,
+      0.2
+    ],
+    "dln_alpha_perp_du": [
+      -0.6,
+      0.6
+    ],
+    "dln_alpha_parallel_du": [
+      -0.6,
+      0.6
+    ],
+    "Sigma_perp_effective": [
+      1.0,
+      6.0
+    ],
+    "Sigma_parallel_effective": [
+      4.0,
+      20.0
+    ],
+    "ln_A_p": [
+      -1.0,
+      4.0
+    ],
+    "dln_A_du": [
+      -2.0,
+      2.0
+    ],
+    "d2ln_A_du2": [
+      -4.0,
+      4.0
+    ],
+    "beta_p": [
+      0.01,
+      1.2
+    ],
+    "dbeta_du": [
+      -0.8,
+      0.8
+    ]
+  },
+  "damping_priors": "effective Sigma_perp=3 +/- 1, Sigma_parallel=8 +/- 3 Mpc/h; includes radial smearing approximately, not a separate redshift-error likelihood",
+  "broadband_prior": "Gaussian coefficient sigma=50 on each column normalized with factor20; coefficients analytically marginalized",
+  "parameters": {
+    "ln_alpha_perp_p": {
+      "p2p5": -0.07058468235724474,
+      "p16": -0.02866290212089274,
+      "median": 0.009806826920287583,
+      "p84": 0.04735382166853274,
+      "p97p5": 0.0892198884290704
+    },
+    "ln_alpha_parallel_p": {
+      "p2p5": -0.17612542086070235,
+      "p16": -0.12042112072304596,
+      "median": -0.05792820073704853,
+      "p84": 0.0028620394654873963,
+      "p97p5": 0.07104882781655239
+    },
+    "dln_alpha_perp_du": {
+      "p2p5": -0.08093701921425567,
+      "p16": 0.01340420544096658,
+      "median": 0.10168710523164663,
+      "p84": 0.19633289261252926,
+      "p97p5": 0.2939215177889351
+    },
+    "dln_alpha_parallel_du": {
+      "p2p5": -0.3317696215320254,
+      "p16": -0.22440955012105906,
+      "median": -0.06640880771075862,
+      "p84": 0.10703089771049927,
+      "p97p5": 0.26701315492849564
+    },
+    "Sigma_perp_effective": {
+      "p2p5": 1.3245295765538347,
+      "p16": 2.0535667185102717,
+      "median": 2.960272415745005,
+      "p84": 3.9247972311737795,
+      "p97p5": 4.868424978018727
+    },
+    "Sigma_parallel_effective": {
+      "p2p5": 4.6568243519594175,
+      "p16": 6.624522184025446,
+      "median": 9.363411452157486,
+      "p84": 12.219322784381696,
+      "p97p5": 14.793443117924769
+    },
+    "ln_A_p": {
+      "p2p5": 0.466011733018471,
+      "p16": 1.1459671082966887,
+      "median": 1.6632357180764472,
+      "p84": 2.0398805680432974,
+      "p97p5": 2.344300569942381
+    },
+    "dln_A_du": {
+      "p2p5": -1.1948370129394827,
+      "p16": -0.434224583356514,
+      "median": 0.23893696065923414,
+      "p84": 0.9400505659596413,
+      "p97p5": 1.6917671197751234
+    },
+    "d2ln_A_du2": {
+      "p2p5": -3.919189515918485,
+      "p16": -3.4411061812115147,
+      "median": -1.9447157097187222,
+      "p84": 0.7820763925260896,
+      "p97p5": 3.2108469731937133
+    },
+    "beta_p": {
+      "p2p5": 0.08844070464158132,
+      "p16": 0.23930004144631634,
+      "median": 0.4998553753849032,
+      "p84": 0.800685208963508,
+      "p97p5": 1.075117851604533
+    },
+    "dbeta_du": {
+      "p2p5": -0.5849957074214598,
+      "p16": -0.34222129097758824,
+      "median": -0.04534456819543464,
+      "p84": 0.24516154451837183,
+      "p97p5": 0.528729005465334
+    }
+  },
+  "distances_and_derivatives": {
+    "DM_over_rd": {
+      "p2p5": 28.28645778670192,
+      "p16": 29.497483272744603,
+      "median": 30.654353025190645,
+      "p84": 31.827212750254326,
+      "p97p5": 33.187979180467764
+    },
+    "DH_over_rd": {
+      "p2p5": 10.76728583236959,
+      "p16": 11.384089784931927,
+      "median": 12.118214698425984,
+      "p84": 12.877735730392718,
+      "p97p5": 13.786456486609886
+    },
+    "dDM_over_rd_dz": {
+      "p2p5": 9.407221040445993,
+      "p16": 13.753706380089458,
+      "median": 17.676145329056084,
+      "p84": 21.95773225440149,
+      "p97p5": 26.69522686889548
+    },
+    "dDH_over_rd_dz": {
+      "p2p5": -13.169899857244722,
+      "p16": -10.572858459997862,
+      "median": -7.611605172861281,
+      "p84": -4.369503249046469,
+      "p97p5": -1.4668982022149681
+    },
+    "d2DM_over_rd_dz2": {
+      "p2p5": -9.980193570461761,
+      "p16": -6.3943529708195515,
+      "median": -2.033570141650757,
+      "p84": 3.731045916206874,
+      "p97p5": 10.950033483682082
+    },
+    "d2DH_over_rd_dz2": {
+      "p2p5": 1.8350024416833894,
+      "p16": 3.2017377154121145,
+      "median": 6.423042810729369,
+      "p84": 10.819906902776356,
+      "p97p5": 15.304894621528033
+    }
+  },
+  "kinematics": {
+    "DV_over_rd": {
+      "p2p5": 24.39626914709542,
+      "p16": 25.061949241760868,
+      "median": 25.696909320102286,
+      "p84": 26.336616042380786,
+      "p97p5": 27.080764236013888
+    },
+    "isotropic_fractional_distance_slope": {
+      "p2p5": -0.021554086958940937,
+      "p16": 0.08512954042524286,
+      "median": 0.1811574006372249,
+      "p84": 0.27872990011288834,
+      "p97p5": 0.39003299051813434
+    },
+    "q_pivot": {
+      "p2p5": -0.7078405126755551,
+      "p16": -0.09498540425584578,
+      "median": 0.5694220826655884,
+      "p84": 1.1746864651296622,
+      "p97p5": 1.585958123303979
+    },
+    "dDMdz_minus_DH": {
+      "p2p5": -2.808300048296331,
+      "p16": 1.5648930651736652,
+      "median": 5.522334591875164,
+      "p84": 9.847463435035456,
+      "p97p5": 14.607827038642364
+    }
+  },
+  "best_fit": [
+    0.0031277226598753313,
+    -0.04859691244242083,
+    0.05933952052437894,
+    -0.02594868184989041,
+    2.9998214488820762,
+    7.975759116136832,
+    1.268201892944079,
+    0.4370798902253844,
+    3.742078428997347,
+    0.1775519983672706,
+    -0.18919475205286368
+  ],
+  "chi2_data_at_conditional_best": 18.986447560041743,
+  "nonlinear_parameters": 11,
+  "broadband_parameters": 12,
+  "independent_ensembles": 2,
+  "walkers_per_ensemble": 44,
+  "steps_per_ensemble": 7000,
+  "burn_in": 2333,
+  "acceptance_fractions": [
+    0.2719642857142857,
+    0.26820779220779223
+  ],
+  "autocorrelation_estimates": [
+    [
+      258.9365948486072,
+      276.94492084671316,
+      209.31191568175987,
+      242.59309004525198,
+      217.34461099332535,
+      241.3976976716673,
+      244.23537747037523,
+      253.77378169513563,
+      281.3962043369231,
+      269.71155554968794,
+      273.0422564617719
+    ],
+    [
+      198.46823886484097,
+      235.3856833840834,
+      229.76121904260864,
+      253.91909310737498,
+      229.62584722567593,
+      229.1673045018584,
+      272.4765544002157,
+      282.0872064711882,
+      309.3987413654799,
+      231.79118607924462,
+      251.8950591817902
+    ]
+  ],
+  "retained_steps_over_max_tau": [
+    16.585156189285616,
+    15.08409497531558
+  ],
+  "effective_sample_estimate": 1393.4470512424525,
+  "half_chain_shift_in_posterior_sigma": [
+    [
+      0.053319503099202095,
+      -0.18641105590196372,
+      -0.001857807476944762,
+      0.027149197092940076,
+      -0.029642846723574937,
+      -0.09294725211083314,
+      -0.034204600484255374,
+      0.02577812407696216,
+      -0.014102902952848157,
+      0.15751109335830601,
+      -0.011563139250905984
+    ],
+    [
+      0.1339230134909264,
+      -0.05755769160877281,
+      0.045040746476864194,
+      0.015917933700199595,
+      -0.04844729004138646,
+      -0.004879024440287713,
+      -0.01451812551445349,
+      -0.11300669488501203,
+      -0.015297901493737774,
+      0.09355038551331231,
+      -0.08747616877087562
+    ]
+  ],
+  "ensemble_median_difference_in_posterior_sigma": [
+    -0.07770624723174666,
+    0.06782621368695065,
+    -0.07725442620501527,
+    -0.012986195757353656,
+    0.08630012214156518,
+    0.013567730568266247,
+    0.0026360959156824255,
+    0.0014142730549580435,
+    0.02900770180625959,
+    -0.08841691665809875,
+    0.013730798420961142
+  ],
+  "boundary_fractions": {
+    "ln_alpha_perp_p": 0.0003041658555577185,
+    "ln_alpha_parallel_p": 0.006545649211602103,
+    "dln_alpha_perp_du": 0.0,
+    "dln_alpha_parallel_du": 0.0,
+    "Sigma_perp_effective": 0.006460482772045941,
+    "Sigma_parallel_effective": 0.011363636363636364,
+    "ln_A_p": 0.0001824995133346311,
+    "dln_A_du": 0.006703815456492116,
+    "d2ln_A_du2": 0.052316527155927585,
+    "beta_p": 0.007458146778275258,
+    "dbeta_du": 0.0
+  },
+  "redshift_quadrature_max_error_in_raw_diagonal_sigma": 0.049064687003673675,
+  "covariance_sensitivity": [
+    {
+      "diagonal_shrinkage": 0.1,
+      "optimizer_success": true,
+      "objective": 10.154897407746754,
+      "derived_at_pivot": [
+        30.450291637546737,
+        12.231822482540439,
+        15.661012514482152,
+        -6.94820903482663,
+        -4.1971708688681515,
+        5.5814500826475575
+      ]
+    },
+    {
+      "diagonal_shrinkage": 0.4,
+      "optimizer_success": true,
+      "objective": 8.642168466276077,
+      "derived_at_pivot": [
+        30.450291637546737,
+        12.231822482540439,
+        15.661012514482152,
+        -6.94820903482663,
+        -4.1971708688681515,
+        5.5814500826475575
+      ]
+    }
+  ],
+  "seconds": 294.39952778816223,
+  "limitations": [
+    "Pre-reconstruction; no mock calibration or reconstruction performed.",
+    "Same weighted random0 and analysis choices as stated; not the DESI official QSO likelihood.",
+    "Distance and shape derivatives conditional on log-AP redshift polynomial and positive Kaiser angular model.",
+    "Finite angular binning, Gaussian covariance and shrinkage, radial smearing approximation and integral constraints need mock validation.",
+    "Shape ratios can be singular; S0p,S1p use internal pivot, not present-day normalization.",
+    "No claim of new information relative to standard DESI without joint mock cross-covariance."
+  ],
+  "shape_audit": {
+    "normalization": "S0p and S1p normalized at z_p=1.49, NOT at z=0; S2 has no anchor normalization",
+    "conditional_on": "linear",
+    "posterior_fraction_Fx_crosses_zero": 0.3170316301703163,
+    "prior_fraction_Fx_crosses_zero": 0.2098,
+    "posterior_fraction_positive_Fx_at_pivot": 0.4274939172749392,
+    "warning": "Ratios can have poles. Quantiles do not define Gaussian uncertainties; finite means/variances are not asserted. The pivot pinch S0p=S1p=1 is imposed normalization, not observational precision.",
+    "S0_at_pivot_quantiles": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "S1_at_pivot_quantiles": [
+      0.9999999999999979,
+      1.0,
+      1.0,
+      1.0000000000000002,
+      1.0000000000000022
+    ],
+    "S2_at_pivot_quantiles": [
+      -4.763132423390927,
+      -0.7421754875922348,
+      1.1106169567756101,
+      1.452595360561846,
+      6.9079801023808365
+    ]
+  }
+}

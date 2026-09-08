@@ -1,0 +1,279 @@
+{
+  "source": "Actual DESI DR1 v1.5 QSO NGC+SGC",
+  "galaxies": 856831,
+  "randoms": 12689095,
+  "no_thinning": true,
+  "pre_reconstruction": true,
+  "pdf_pages": 62,
+  "scientific_figures": 54,
+  "pdf_bytes": 5475442,
+  "pdf_sha256": "1106d70a4c6f7ddd24f177056b2bb4b3c860c61479e5001542ae7e20e9e92896",
+  "pdf_render_and_text_checks": "PASS",
+  "counts_summary": {
+    "source": "actual DESI DR1 v1.5 catalogues",
+    "caps": {
+      "NGC": {
+        "selected_data_rows": 555913,
+        "selected_random_rows": 8134597,
+        "input_data_rows": 793219,
+        "input_random_rows": 11610722,
+        "njack": 80,
+        "sha256": {
+          "QSO_NGC_clustering.dat.fits": "9d01efdc6dc3c2a403369e5a8e0f7129a8ff08b5e503d9b0c6b91b7bc589f784",
+          "QSO_NGC_0_clustering.ran.fits": "2e14a4d112deada4f41f2c1768048184d5c2b97d2874844e2cc12adbab8964ce"
+        },
+        "pair_counts": {
+          "DD": 95536041,
+          "DR": 2707776169,
+          "RR": 19328754516
+        }
+      },
+      "SGC": {
+        "selected_data_rows": 300918,
+        "selected_random_rows": 4554498,
+        "input_data_rows": 430172,
+        "input_random_rows": 6511977,
+        "njack": 40,
+        "sha256": {
+          "QSO_SGC_clustering.dat.fits": "875c67fe9ef5c03c1daf9fe5606f254b3ab6e91c4fb01ef304f6fa9a7a2c1bc4",
+          "QSO_SGC_0_clustering.ran.fits": "2965a952b3a59902f0de84f91e95f4106c3f63a2b32e9f539450b3ed73d9d9c9"
+        },
+        "pair_counts": {
+          "DD": 44122226,
+          "DR": 1313692233,
+          "RR": 9816907597
+        }
+      }
+    },
+    "covariance": "sum of independent cap delete-one jackknife covariances",
+    "pre_reconstruction": true,
+    "thinning": false,
+    "pair_zmean_rebin1": 1.4867441592454103,
+    "W1_zmean_rebin1": 1.464220268640811,
+    "W2_zmean_rebin1": 1.45617559014604,
+    "W1_zvar_rebin1": 0.07204918933881886,
+    "W2_zvar_rebin1": 0.05318046876541928,
+    "covariance_rank_rebin1": 118,
+    "pair_zmean_rebin2": 1.486570766885282,
+    "W1_zmean_rebin2": 1.4640656974159427,
+    "W2_zmean_rebin2": 1.4560321128924398,
+    "W1_zvar_rebin2": 0.0719661173322583,
+    "W2_zvar_rebin2": 0.0531163166535777,
+    "covariance_rank_rebin2": 118,
+    "status": "complete_raw_clustering_and_two_derivatives"
+  },
+  "model_results": {
+    "linear": {
+      "distances": {
+        "DM_over_rd": {
+          "p2p5": 28.28645778670192,
+          "p16": 29.497483272744603,
+          "median": 30.654353025190645,
+          "p84": 31.827212750254326,
+          "p97p5": 33.187979180467764
+        },
+        "DH_over_rd": {
+          "p2p5": 10.76728583236959,
+          "p16": 11.384089784931927,
+          "median": 12.118214698425984,
+          "p84": 12.877735730392718,
+          "p97p5": 13.786456486609886
+        },
+        "dDM_over_rd_dz": {
+          "p2p5": 9.407221040445993,
+          "p16": 13.753706380089458,
+          "median": 17.676145329056084,
+          "p84": 21.95773225440149,
+          "p97p5": 26.69522686889548
+        },
+        "dDH_over_rd_dz": {
+          "p2p5": -13.169899857244722,
+          "p16": -10.572858459997862,
+          "median": -7.611605172861281,
+          "p84": -4.369503249046469,
+          "p97p5": -1.4668982022149681
+        },
+        "d2DM_over_rd_dz2": {
+          "p2p5": -9.980193570461761,
+          "p16": -6.3943529708195515,
+          "median": -2.033570141650757,
+          "p84": 3.731045916206874,
+          "p97p5": 10.950033483682082
+        },
+        "d2DH_over_rd_dz2": {
+          "p2p5": 1.8350024416833894,
+          "p16": 3.2017377154121145,
+          "median": 6.423042810729369,
+          "p84": 10.819906902776356,
+          "p97p5": 15.304894621528033
+        }
+      },
+      "kinematics": {
+        "DV_over_rd": {
+          "p2p5": 24.39626914709542,
+          "p16": 25.061949241760868,
+          "median": 25.696909320102286,
+          "p84": 26.336616042380786,
+          "p97p5": 27.080764236013888
+        },
+        "isotropic_fractional_distance_slope": {
+          "p2p5": -0.021554086958940937,
+          "p16": 0.08512954042524286,
+          "median": 0.1811574006372249,
+          "p84": 0.27872990011288834,
+          "p97p5": 0.39003299051813434
+        },
+        "q_pivot": {
+          "p2p5": -0.7078405126755551,
+          "p16": -0.09498540425584578,
+          "median": 0.5694220826655884,
+          "p84": 1.1746864651296622,
+          "p97p5": 1.585958123303979
+        },
+        "dDMdz_minus_DH": {
+          "p2p5": -2.808300048296331,
+          "p16": 1.5648930651736652,
+          "median": 5.522334591875164,
+          "p84": 9.847463435035456,
+          "p97p5": 14.607827038642364
+        }
+      },
+      "effective_samples": 1393.4470512424525,
+      "shape_audit": {
+        "normalization": "S0p and S1p normalized at z_p=1.49, NOT at z=0; S2 has no anchor normalization",
+        "conditional_on": "linear",
+        "posterior_fraction_Fx_crosses_zero": 0.3170316301703163,
+        "prior_fraction_Fx_crosses_zero": 0.2098,
+        "posterior_fraction_positive_Fx_at_pivot": 0.4274939172749392,
+        "warning": "Ratios can have poles. Quantiles do not define Gaussian uncertainties; finite means/variances are not asserted. The pivot pinch S0p=S1p=1 is imposed normalization, not observational precision.",
+        "S0_at_pivot_quantiles": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "S1_at_pivot_quantiles": [
+          0.9999999999999979,
+          1.0,
+          1.0,
+          1.0000000000000002,
+          1.0000000000000022
+        ],
+        "S2_at_pivot_quantiles": [
+          -4.763132423390927,
+          -0.7421754875922348,
+          1.1106169567756101,
+          1.452595360561846,
+          6.9079801023808365
+        ]
+      }
+    },
+    "quadratic": {
+      "distances": {
+        "DM_over_rd": {
+          "p2p5": 28.78778283440347,
+          "p16": 30.18442947491679,
+          "median": 31.48765416741412,
+          "p84": 32.81466356865495,
+          "p97p5": 34.1741209243572
+        },
+        "DH_over_rd": {
+          "p2p5": 10.683268071604179,
+          "p16": 11.243879342326652,
+          "median": 12.065711569221454,
+          "p84": 12.989894139752773,
+          "p97p5": 14.2064381533705
+        },
+        "dDM_over_rd_dz": {
+          "p2p5": 8.091112516426744,
+          "p16": 12.611720771592138,
+          "median": 16.88775897066192,
+          "p84": 20.312164696789118,
+          "p97p5": 23.983898228139612
+        },
+        "dDH_over_rd_dz": {
+          "p2p5": -11.863466100551951,
+          "p16": -9.263365402600009,
+          "median": -6.528179954388464,
+          "p84": -3.9692832506060194,
+          "p97p5": -1.5203526151756812
+        },
+        "d2DM_over_rd_dz2": {
+          "p2p5": -65.36612887492085,
+          "p16": -43.56408041400561,
+          "median": -21.838843839784122,
+          "p84": 2.0880000025461665,
+          "p97p5": 28.39393509228736
+        },
+        "d2DH_over_rd_dz2": {
+          "p2p5": -13.357485456151506,
+          "p16": -1.4434869398079038,
+          "median": 11.473751941784485,
+          "p84": 21.2520802041662,
+          "p97p5": 27.48404007601841
+        }
+      },
+      "kinematics": {
+        "DV_over_rd": {
+          "p2p5": 24.666833791485736,
+          "p16": 25.43475424728915,
+          "median": 26.172795498316546,
+          "p84": 26.846967384713516,
+          "p97p5": 27.59335921601135
+        },
+        "isotropic_fractional_distance_slope": {
+          "p2p5": -0.022347289521014432,
+          "p16": 0.08302342970499273,
+          "median": 0.17524216442359447,
+          "p84": 0.2596177096614267,
+          "p97p5": 0.3439306964636344
+        },
+        "q_pivot": {
+          "p2p5": -0.681651598927465,
+          "p16": -0.17238382646295428,
+          "median": 0.3440081466628828,
+          "p84": 0.8734020550800665,
+          "p97p5": 1.377619632447729
+        },
+        "dDMdz_minus_DH": {
+          "p2p5": -4.057884538456902,
+          "p16": 0.4255192039683423,
+          "median": 4.655615629255171,
+          "p84": 8.25651885660746,
+          "p97p5": 12.116293583014354
+        }
+      },
+      "effective_samples": 1289.6703284729783,
+      "shape_audit": {
+        "normalization": "S0p and S1p normalized at z_p=1.49, NOT at z=0; S2 has no anchor normalization",
+        "conditional_on": "quadratic",
+        "posterior_fraction_Fx_crosses_zero": 0.7969367588932806,
+        "prior_fraction_Fx_crosses_zero": 0.715,
+        "posterior_fraction_positive_Fx_at_pivot": 0.5763339920948617,
+        "warning": "Ratios can have poles. Quantiles do not define Gaussian uncertainties; finite means/variances are not asserted. The pivot pinch S0p=S1p=1 is imposed normalization, not observational precision.",
+        "S0_at_pivot_quantiles": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "S1_at_pivot_quantiles": [
+          0.999999999999998,
+          0.9999999999999999,
+          1.0,
+          1.0000000000000002,
+          1.0000000000000024
+        ],
+        "S2_at_pivot_quantiles": [
+          -45.740323342491486,
+          -4.322705377859343,
+          1.703351387928389,
+          9.07532877082139,
+          50.99792525492366
+        ]
+      }
+    }
+  }
+}
