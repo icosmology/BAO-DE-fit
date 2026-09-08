@@ -1,0 +1,152 @@
+name: QSO joint differential BAO and PDF
+on:
+  push:
+    branches: [chatgpt-qso-dr1-analysis-20260908]
+    paths: ['.github/workflows/qso-dr1-inference.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  ready:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate all analysis and report source syntax
+        run: |
+          python qso_analysis/prepare_qso.py
+          python -m compileall -q qso_analysis qso_runtime
+      - name: Wait for the actual-catalogue measurement run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,time,json,urllib.request
+          url='https://api.github.com/repos/icosmology/BAO-DE-fit/actions/runs/34188293662'
+          for attempt in range(240):
+              req=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=60) as response:r=json.load(response)
+              print('Catalogue run:',r['status'],r['conclusion'],flush=True)
+              if r['status']=='completed':
+                  if r['conclusion']=='success':break
+                  raise RuntimeError('Catalogue measurement has not succeeded; no scientific fit will run.')
+              time.sleep(20)
+          else:raise TimeoutError('Catalogue computation exceeded polling limit.')
+          PY
+  fit:
+    needs: ready
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [linear, quadratic]
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      NUMBA_NUM_THREADS: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' 'scipy<1.17' numba matplotlib camb emcee
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: icosmology/BAO-DE-fit
+          run-id: 34188293662
+          name: QSO-full-direct-measurements
+          path: qso_measurements
+      - name: Fit actual QSO moments with free distance anchors
+        run: |
+          python qso_analysis/prepare_qso.py
+          python qso_analysis/run_inference.py --input qso_measurements/measurements_rebin2.npz --output qso_fit --model ${{ matrix.model }} --steps 7000
+      - name: Record environment and source
+        if: always()
+        run: |
+          mkdir -p qso_fit/reproduction
+          cp -r qso_runtime qso_fit/reproduction/
+          cp qso_analysis/run_inference.py qso_analysis/prepare_qso.py qso_fit/reproduction/
+          python -m pip freeze > qso_fit/environment.txt
+          git rev-parse HEAD > qso_fit/source_commit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QSO-fit-${{ matrix.model }}
+          path: qso_fit/
+          retention-days: 90
+          compression-level: 6
+  report:
+    needs: fit
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+      actions: read
+    env:
+      MPLBACKEND: Agg
+      OPENBLAS_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt-qso-dr1-analysis-20260908
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy<2.3' 'scipy<1.17' matplotlib reportlab pymupdf pillow
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: QSO-fit-*
+          path: fits
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: icosmology/BAO-DE-fit
+          run-id: 34188293662
+          name: QSO-full-direct-measurements
+          path: qso_measurements
+      - name: Assemble all results and figures into one PDF and render checks
+        run: |
+          python qso_analysis/make_report.py --raw qso_measurements --fits fits --output qso_delivery
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-QSO-PDF-report
+          path: qso_delivery/DESI_DR1_QSO_Differential_BAO_Report.pdf
+          retention-days: 90
+          compression-level: 6
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-QSO-figures-report-audit
+          path: qso_delivery/
+          retention-days: 90
+          compression-level: 6
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DESI-QSO-full-analysis-products
+          path: |
+            qso_delivery/
+            qso_measurements/
+            fits/
+          retention-days: 90
+          compression-level: 6
+      - name: Publish compact outputs on the isolated analysis branch only
+        run: |
+          mkdir -p qso_outputs
+          cp qso_delivery/DESI_DR1_QSO_Differential_BAO_Report.pdf qso_delivery/delivery_summary.json qso_delivery/pdf_quality_checks.json qso_outputs/
+          cp qso_delivery/figures/*.png qso_outputs/
+          cp qso_delivery/figures/*summary.json qso_outputs/ || true
+          cp qso_delivery/figures/*shape_audit.json qso_outputs/ || true
+          git config user.name 'QSO analysis runner'
+          git config user.email 'actions@users.noreply.github.com'
+          git add qso_outputs
+          git commit -m 'Deliver actual full QSO differential clustering, BAO and PDF report'
+          git pull --rebase origin chatgpt-qso-dr1-analysis-20260908
+          git push origin HEAD:chatgpt-qso-dr1-analysis-20260908
