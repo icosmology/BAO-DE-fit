@@ -1,0 +1,53 @@
+name: QSO official DESI template audit
+on:
+  push:
+    branches: [chatgpt-qso-official-windowed-20260908]
+    paths: ['.github/workflows/qso-official-audit.yml','qso_official/audit_native.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      XLA_FLAGS: '--xla_cpu_multi_thread_eigen=false'
+      JAX_ENABLE_X64: '1'
+      MPLBACKEND: Agg
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native official libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libopenmpi-dev openmpi-bin
+          python -m pip install 'numpy<2' 'scipy<1.14' 'jax[cpu]==0.4.35' pyyaml mpi4py matplotlib emcee corner h5py cython 'setuptools<81' wheel interpax
+          python -m pip install git+https://github.com/adematti/pyclass
+          python -m pip install git+https://github.com/cosmodesi/cosmoprimo
+          python -m pip install git+https://github.com/cosmodesi/desilike@4c77845a48fe444b1e8f7f4ce406072071b0ed01
+          python -m pip freeze > official_environment.txt
+      - name: Audit official template and available reference data
+        run: python qso_official/audit_native.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QSO-official-template-audit
+          path: |
+            official_audit/
+            official_environment.txt
+          retention-days: 90
+      - name: Publish audit on isolated branch
+        if: success()
+        run: |
+          git config user.name 'DESI template audit'
+          git config user.email 'actions@users.noreply.github.com'
+          git add official_audit official_environment.txt
+          git commit -m 'Record actual native DESI template validation'
+          git pull --rebase origin chatgpt-qso-official-windowed-20260908
+          git push origin HEAD:chatgpt-qso-official-windowed-20260908
